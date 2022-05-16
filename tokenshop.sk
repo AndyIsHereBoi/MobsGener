@@ -1,0 +1,60 @@
+options:
+	GenVoucherCost: 500000000
+	GetGenCost: 250000000
+	GetKeyCost: 75000
+	KeyDiamondType: repeater
+	KeyEmeraldType: comparator
+
+command /tokenshop:
+	trigger:
+		open virtual hopper inventory named "         &4&kI&a&kI&b&kI&r&d&lToken Shop&4&kI&a&kI&b&kI&r" to player
+		format slot 0 of player with paper named "&6&l+1 Gen Slot" with lore "Cost: ${@GenVoucherCost} tokens" and "Click to buy!" to run [make player run command "/buygenvoucher" as op] 
+		format slot 2 of player with emerald block named "&6&lEmerald Gen" with lore "Cost: ${@GetGenCost} tokens" and "Click to buy!" to run [make player run command "/buygen" as op]
+		format slot 4 of player with tripwire hook named "Crate Keys" with lore "Cost: ${@GetKeyCost} tokens" and "Click to buy!" to run [make player run command "/key" as op]
+        
+function buyGenVoucher(p: player):
+    set {_uuid} to uuid of {_p}
+    if {tokens::%{_uuid}%} >= {@GenVoucherCost}:
+        remove {@GenVoucherCost} from {tokens::%{_uuid}%}
+        give {_p} 1 of paper named "&6&l+1 Gen Slot" with lore "&aRight click to redeem!"
+        send "&cYou bought a gen voucher." to {_p}
+    else:
+        send "&c&lError: &7You do not have enough tokens to buy a gen voucher!" to {_p}
+      
+function buyEmeraldGen(p: player):
+    set {_uuid} to uuid of {_p}
+    if {tokens::%{_uuid}%} >= {@GetGenCost}:
+        remove {@GetGenCost} from {tokens::%{_uuid}%}
+        give {_p} 1 of emerald block named "&6&lEmerald Gen" with lore "&7(Place To Use)"
+        send "&aYou bought a emerald gen." to {_p}
+    else:
+        send "&c&lError: &7You do not have enough tokens to buy a Emerald Gen!" to {_p}
+
+function buyKey(p: player):
+	set {_uuid} to uuid of {_p}
+	set {_random} to random integer between 1 and 4
+	if {_random} is between 1 and 2:
+		if {tokens::%{_uuid}%} >= {@GetKeyCost}:
+			remove {@GetKeyCost} from {tokens::%{_uuid}%}
+			add 1 to {kb.%{_p}%.diamond}
+			send "&aYou bought a &b&lDiamond &7Key stored in your &4&kI&a&kI&b&kI&4&lK&6&le&1&ly&7&lBackpack&b&kI&a&kI&4&kI." to {_p}
+	if {_random} is between 3 and 4:
+		if {tokens::%{_uuid}%} >= {@GetKeyCost}:
+			remove {@GetKeyCost} from {tokens::%{_uuid}%}
+			add 1 to {kb.%{_p}%.emerald}
+			send "&aYou bought a &a&lEmerald &7Key stored in your &4&kI&a&kI&b&kI&4&lK&6&le&1&ly&7&lBackpack&b&kI&a&kI&4&kI." to {_p}
+		else:
+			send "&c&lError: &7You do not have enough tokens to buy a Crate Key!" to {_p}
+
+	
+command /buygen:
+	trigger:
+		buyEmeraldGen(player)
+		
+command /buygenvoucher:
+	trigger:
+		buyGenVoucher(player)
+
+command /key:
+	trigger:
+		buyKey(player)

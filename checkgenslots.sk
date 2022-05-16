@@ -1,0 +1,3 @@
+command /checkslots <offline player>:
+	trigger:
+		send "player is using %{gc::%arg-1's uuid%}% of %{gencap::%arg-1's uuid%}%"

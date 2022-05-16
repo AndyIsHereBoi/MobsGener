@@ -1,0 +1,238 @@
+on item damage:
+    cancel event
+
+on hunger meter change:
+    cancel event
+
+on mine:
+    if event-block is coal ore:
+        cancel event
+        set event-block to air
+
+options:
+    main: <##33adff>
+    other: <##89CFF0>
+    ToolName: &eToken Miner &3| &fBlocks Broken: &3: &b%{PickaxeCounter::%player%}%&3
+
+on load:
+    set {enchants::*} to "Efficiency", "Fortune" and "Key Finder"
+    fn("Efficiency", 123, "Makes you mine faster.", 100, 200)
+    fn("Fortune", 25, "Increases the sell value of each block.", 100, 500)
+    fn("Key Finder", 100, "Gives random stuff", 0.005, 2500)
+	
+function fn(enchant: text, max: number, description: text, chance: number, cost: number):
+    set {max::%{_enchant}%} to {_max}
+    set {desc::%{_enchant}%} to {_description}
+    set {chance::%{_enchant}%} to {_chance}
+    set {cost::%{_enchant}%} to {_cost}
+	
+function regex(n: object) :: text:
+    if "%{_n}%" contains ".":
+        set {_s::*} to split "%{_n}%" at "."
+        set {_n} to "%a({_s::1})%.%last 2 characters of {_s::2}%"
+        return "%{_n}%"
+    else:
+        set {_n} to a("%{_n}%")
+        return "%{_n} ? 0%"
+        
+function a(b: text) :: text:
+    if length of {_b} > 3:
+        return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
+    return {_b}
+
+function format(n: number, type: number) :: text:
+    if {_type} is 2:
+        set {_data} to "O,30|o,27|S,24|s,21|Q,18|q,15|T,12|B,9|M,6|k,3"
+        loop split {_data} at "|":
+            set {_s::*} to split loop-value at ","
+            {_n} >= 10 ^ {_s::2} parsed as number
+            return "%{_n} / 10 ^ {_s::2} parsed as number%%{_s::1}%"
+        return "%{_n}%"
+    else if {_type} is 1:
+        return regex({_n})
+        
+function setLore(item: item) :: item:
+    set {_enchants} to tag "CustomEnchants" of nbt of {_item}
+    {_enchants} is set:
+        set {_split::*} to split {_enchants} at ","
+        loop {_split::*}:
+            set {_split2::*} to split loop-value at ":"
+            set {_value} to {_split2::2} parsed as number if {_split2::2} parsed as number is set
+            set {_enchants::%{_split2::1}%} to {_value}
+
+    add " " to {_lore::*}
+    add "{@main}Information:" to {_lore::*}
+    add " &8&l| &7Buff: {@other}+%0.01*{_level}% {@other}XP" to {_lore::*} if {_level} > 0
+    add " " to {_lore::*} if {_enchants} < 0
+
+    size of {_enchants::*} > 0:
+        add " " to {_lore::*}
+        add "{@main}Enchantments {@other}(%size of {_enchants::*}%{@other})&8:" to {_lore::*}
+    loop {_enchants::*}:
+        add " &8&l| &7%loop-index in proper case% &7%loop-value%" to {_lore::*}
+    add " " to {_lore::*} if size of {_enchants::*} > 0
+
+    set {_lore} to join {_lore::*} with newline
+    set lore of {_item} to {_lore}
+    if {_enchants::efficiency} >= 1:
+        return {_item} with nbt "{Enchantments:[{id:""efficiency"",lvl:%{_enchants::efficiency}%}]}"
+    return {_item}
+
+function getPickEnchants(item: item) :: objects:
+    set {_enchants} to tag "CustomEnchants" of nbt of {_item}
+    if {_enchants} is set:
+        set {_split::*} to split {_enchants} at ","
+        return {_split::*} if {_enchants} is set
+    return null
+
+function getPickEnchant(item: item, enchant: text) :: number:
+    set {_enchants::*} to getPickEnchants({_item})
+    loop {_enchants::*}:
+        set {_split::*} to split loop-value at ":"
+        set {_enchant::%{_split::1}%} to {_split::2} parsed as number
+    return {_enchant::%{_enchant}%} if {_enchant::%{_enchant}%} is set, else (0)
+
+function enchant(item: item, enchant: text, amount: integer) :: item:
+    set {_level} to getPickEnchant({_item}, {_enchant})
+    add {_amount} to {_level}
+    set {_enchants::*} to getPickEnchants({_item})
+    loop {_enchants::*}:
+        set {_split::*} to split loop-value at ":"
+        if {_split::1} is {_enchant}:
+            set {_value} to loop-value
+            replace all ":%{_level} - {_amount}%" in {_value} with ":%{_level}%"
+            if {_value} is "%{_enchant}%:<none>":
+                replace all ":<none>" in {_value} with ":%{_level}%"
+                broadcast "%{_value}%"
+            set {_enchants::%loop-index%} to {_value}
+            set {_set} to true
+    add "%{_enchant}%:%{_amount} ? 1%" to {_enchants::*} if {_set} is not set
+    set {_item} to {_item} with nbt "{CustomEnchants:""%join {_enchants::*} with ","%""}" if {_enchants::*} is set
+    set {_item} to {_item} with nbt "{CustomEnchants:""%{_enchant}%:%{_amount}%""}" if {_enchants::*} is not set
+    return setLore({_item})
+
+function newPickaxe(p: player) :: item:
+    set {_pick} to golden pickaxe with nbt "{broken:0}" with all flags hidden
+    set {_broken} to tag "broken" of nbt of {_pick}
+    set name of {_pick} to "&eToken Miner &3| &fBlocks Broken: &3: &b%{PickaxeCounter::%{_p}%}%&3"
+    set {_pick} to setLore({_pick})
+    return {_pick}
+
+function getWorth(block: block) :: number:
+    return 0.25 if {_block} is coal ore
+    return 0.5 if {_block} is gold ore
+    return 1 if {_block} is emerald ore
+    return 5 if {_block} is ancient debris
+
+function getValue(number: number, multi: number, fortune: number) :: number:
+    return ((0.75*{_fortune})+1)*{_number}*{_multi}
+
+function getMulti(p: player) :: number:
+    return ({prestige::%{_p}%}*0.1)+1
+
+function sendMessage(p: player, mode: text, message: text, message2: text):
+    if {_mode} is "Title":
+        send title {_message} with subtitle {_message2} to {_p}
+    else if {_mode} is "Actionbar":
+        send action bar "%{_message}% &8| %{_message2}%" to {_p}
+    else if {_mode} is "Chat":
+        send "%{_message}% &8| %{_message2}%" to {_p}
+
+function sendMessageEnchant(p: player, enchant: text, cash: integer, blocks: integer, xp: integer):
+    if {toggle::%{_p}%::enchantMsgs2} is "Title":
+        send title "{@main}&l(!) {@other}&l%{_enchant} in UPPERCASE% {@main}&l(!)" with subtitle "{@other}+$%format({_value}, 2)% &8&l| {@main}%format({_blocks}, 2)% " to {_p} for 2 seconds if {toggle::%{_p}%::enchantMsgs} is true
+    else if {toggle::%{_p}%::enchantMsgs2} is "Actionbar":
+        send action bar "{@other}&l%{_enchant} in UPPERCASE% &8&l| {@other}+$%format({_value}, 2)% &8&l| {@main}%format({_blocks}, 2)%" to {_p} if {toggle::%{_p}%::enchantMsgs} is true
+    else if {toggle::%{_p}%::enchantMsgs2} is "":
+        send "{@main}&l(!) {@other}&l%{_enchant} in UPPERCASE% {@other}+$%format({_value}, 2)% &8&l| {@main}%format({_blocks}, 2)%" to {_p} if {toggle::%{_p}%::enchantMsgs} is true
+
+on break of coal ore or gold ore or emerald ore or ancient debris:
+    player is holding golden pickaxe
+    set player's tool to setLore(player's tool)
+    set {_name} to "{@ToolName}" if {_name} is not set
+
+    add getValue(getWorth(event-block), getMulti(player), getPickEnchant(player's tool, "Fortune")) to {_value}
+    add {_value} to {tokens::%player's uuid%}           
+    getPickEnchant(player's tool, "Key Finder") > 0:
+        chance of ({chance::Key Finder}*getPickEnchant(player's tool, "Key Finder"))%:
+            set {_random} to random integer between 1 and 25
+            if {_random} is between 0 and 1:
+                add 1 to {kb.%player%.legendary}
+            if {_random} is between 2 and 5:
+                add 1 to {kb.%player%.epic}
+            if {_random} is between 6 and 11:
+                add 1 to {kb.%player%.rare}
+            if {_random} is between 12 and 21:
+                add 1 to {kb.%player%.uncommon}
+            if {_random} is between 0 and 25:
+                add 1 to {kb.%player%.common}
+            send action bar "&a&l➹ &c&lTreasure &a&l➹ &f&lWent off" to player
+
+    
+command /pickaxe:
+    trigger:
+        give player newPickaxe(player) if player's inventory does not contain diamond pickaxe
+
+function getCost(i: integer, l: integer) :: number:
+    # i = cost for first level, l = current level
+    return {_i} * ({_l})
+
+function upgrade(p: player, enchant: text, amount: integer, cost: number):
+    set {_uuid} to uuid of {_p}
+    set {_item} to {_p}'s tool
+    set {_lvl} to getPickEnchant({_item}, {_enchant})
+    if {_lvl}+{_amount} > {max::%{_enchant}%}:
+        close {_uuid}'s inventory
+        send title "{@main}&lError" with subtitle "&fYou cannot buy this much!" to {_uuid} for 2.5 seconds
+    else if {_lvl} >= {max::%{_enchant}%}:
+        close {_uuid}'s inventory
+        send title "{@main}&lError" with subtitle "&fYou have the max level of this enchant!" to {_uuid} for 2.5 seconds
+    else if {tokens::%{_uuid}%} < {_cost}:
+        close {_uuid}'s inventory
+        send title "{@main}&lError" with subtitle "&fYou don't have enough money!" to {_uuid} for 2.5 seconds
+    else:
+        remove {_cost} from {tokens::%{_uuid}%}
+        set {_tool} to tool of {_p}
+        set tool of {_p} to enchant({_tool}, {_enchant}, {_amount})
+        set {_cost} to {_cost}
+        send title "{@main}&lSuccess!" with subtitle "&fPurchased {@other}%{_enchant}% %{_lvl} + 1% &ffor {@other}$%format({_cost}, 2)%&f!" to {_p} for 2.5 seconds
+        upgradeGUI({_p})
+
+function upgradeGUI(p: player):
+    create gui with virtual chest inventory with size 5 named "    &4&kI&a&kI&b&kI&r&d&lEnchant ' o ' matic&4&kI&a&kI&b&kI":
+        format gui slot 40 with {_p}'s tool
+        format gui slot 0 and 1 and 7 and 8 and 9 and 17 with diamond block named "" 
+        format gui slot 2 and 3 and 4 and 5 and 6 with red wool named "" 
+        format gui slot 18 and 26 and 27 and 35 and 36 and 37 and 38 and 39 and 41 and 42 and 43 and 44 with obsidian named "" 
+        format gui slot 10 and 16 and 19 and 25 and 28 and 34 with black stained glass pane named "" 
+
+        set {_d} to 11
+        loop {enchants::*}:
+            set {_item} to book
+            set {_lvl} to getPickEnchant({_p}'s tool, loop-value)
+            set {_cost} to getCost({cost::%loop-value%}, {_lvl})
+            set {_enchant} to loop-value
+            set {_tool} to {_p}'s tool
+            set {_chance} to {chance::%loop-value%}*{_lvl} if {chance::%loop-value%} is not 100, else (100)
+            set {_3l} to " {@main}&l| &7Chance: {@other}%{_chance}%{@other}%%" if {_enchant} is not "Fortune", else (" {@main}&l| &7Buff: {@other}+%{_lvl}*0.6%%% {@other}Sell Value")
+            format gui slot {_d} with {_item} named "{@main}&l%loop-value in UPPERCASE%" with lore " %nl%&7&o%{desc::%loop-value%}%%nl%%nl%{@main}Information%nl% {@main}&l| &7Current: {@other}%format({_lvl}, 1)%{@other}/%format({max::%loop-value%}, 1)%%nl% {@main}&l| &7Cost: {@other}$%format({_cost}, 2)%%nl%%{_3l}%%nl%%nl%&7&oClick to purchase.":
+                upgrade({_p}, {_enchant}, 1, {_cost})
+            add 1 to {_d2}
+            add 4 to {_d} if {_d2} is divisible by 5
+            add 1 to {_d}
+    open last gui to {_p}
+
+command /upgrade:
+    trigger:
+        player is holding golden pickaxe
+        upgradeGUI(player)
+
+right click:
+    player is holding golden pickaxe
+    upgradeGUI(player) if player is sneaking
+
+on block break:
+	if player is holding a golden pickaxe:
+		if event-block is gold ore or emerald ore or coal ore or ancient debris:
+			add 1 to {PickaxeCounter::%player%}
+			set name of tool of player to "{@ToolName}"

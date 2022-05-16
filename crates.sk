@@ -1,0 +1,624 @@
+on place of tripwire hook:
+    cancel event
+on place of repeater:
+	cancel event
+on place of comparator:
+	cancel event
+on place of powered rail:
+	cancel event
+on place of detector rail:
+	cancel event
+on place of activator rail:
+	cancel event
+
+options:
+        
+    KeyDailyType: tripwire hook
+    KeyDiamondType: repeater
+    KeyEmeraldType: comparator
+    KeyMineTypeCommon: powered rail
+    KeyMineTypeUncommon: detector rail
+    KeyMineTypeRare: activator rail
+    KeyMineTypeEpic: sunflower
+    KeyMineTypeLegendary: nether star
+    KeyDailyName: "&6&lDaily &7Key"
+    KeyDiamondName: "&b&lDiamond &7Key"
+    KeyEmeraldName: "&a&lEmerald &7Key"
+    KeyMineNameCommon: "&7&lCommon &7Key"
+    KeyMineNameUncommon: "&a&lUncommon &7Key"
+    KeyMineNameRare: "&1&lRare &7Key"
+    KeyMineNameEpic: "&d&lEpic &7Key"
+    KeyMineNameLegendary: "&6&lLegendary &7Key"
+    KeyLore: "&7Right click a amethyst crate to use."
+    
+on load:
+    delete {coppergens::*}
+    delete {irongens::*}
+    delete {diamondgens::*}
+    
+    add hay block to {coppergens::*}
+    add pumpkin to {coppergens::*}
+    add melon to {coppergens::*}
+    add coal block to {coppergens::*}
+    add iron block to {coppergens::*}
+    add gold block to {coppergens::*}
+    add diamond block to {coppergens::*}
+    
+    add emerald block to {irongens::*}
+    add white glazed terracotta to {irongens::*}
+    add light blue glazed terracotta to {irongens::*}
+    add yellow glazed terracotta to {irongens::*}
+    add lime glazed terracotta to {irongens::*}
+    add purple glazed terracotta to {irongens::*}
+    add blue glazed terracotta to {irongens::*}
+    
+    add red glazed terracotta to {diamondgens::*}
+    add copper block to {diamondgens::*}
+    add exposed copper to {diamondgens::*}
+    add weathered copper to {diamondgens::*}
+    add oxidized copper to {diamondgens::*}
+    add cut copper to {diamondgens::*}
+    add exposed cut copper to {diamondgens::*}
+    
+    
+on rightclick on amethyst block:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyDailyType}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 1000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom daily key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom daily key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom daily key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom daily key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 420"
+				send "&aYou got &6Ⓣ420 &rfrom daily key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+			else if {_random} is between 99 and 100:
+				give random element of {coppergens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Mid Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDailyType} from player's inventory 
+		else:
+			send "&4&lYou need the &6&lDaily &7Key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on observer:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyDiamondType}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+			else if {_random} is between 99 and 100:
+				give random element of {irongens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Mid Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyDiamondType} from player's inventory 
+		else:
+			send "&4&lYou need the &b&lDiamond &7Key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+            
+on rightclick on redstone lamp:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyEmeraldType}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 69420"
+				send "&aYou got &6Ⓣ69420 &rfrom diamond key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+			else if {_random} is between 99 and 100:
+				give random element of {diamondgens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Mid Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyEmeraldType} from player's inventory 
+		else:
+			send "&4&lYou need the &a&lEmerald &7Key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on deepslate copper ore:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyMineTypeCommon}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom common key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom common key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom common key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom common key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom common key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 95 and 100:
+				give random element of {coppergens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Early Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+			else if {_random} is between 99 and 100:
+				execute console command "/keyget uncommon %player%"
+				send title "&aYou Got A Upgrade" with subtitle "&61 Uncommon Key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeCommon} from player's inventory 
+		else:
+			send "&4&lYou need the &7&lCommon &7key &4&lto open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on deepslate iron ore:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyMineTypeUncommon}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom uncommon key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom uncommon key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom uncommon key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom uncommon key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom uncommon key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 98 and 100:
+				give random element of {irongens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Mid Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+			else if {_random} is between 99 and 100:
+				execute console command "/keyget rare %player%"
+				send title "&aYou Got A Upgrade" with subtitle "&61 Rare Key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeUncommon} from player's inventory 
+		else:
+			send "&4&lYou need the &a&lUncommon &7key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on deepslate gold ore:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyMineTypeRare}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom rare key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom rare key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom rare key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom rare key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom rare key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 99 and 100:
+				give random element of {irongens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 Mid Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+			else if {_random} is between 99 and 100:
+				execute console command "/keyget epic %player%"
+				send title "&aYou Got A Upgrade" with subtitle "&61 Epic Key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeRare} from player's inventory 
+		else:
+			send "&4&lYou need the &1&lRare &7key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on deepslate diamond ore:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyMineTypeEpic}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 0 and 1:
+				execute console command "/buygenvoucher %player%"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom epic key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom epic key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom epic key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom epic key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom epic key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 99 and 100:
+				give random element of {diamondgens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 End Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+			else if {_random} is between 99 and 100:
+				execute console command "/keygen legendary %player%"
+				send title "&aYou Got A Upgrade" with subtitle "&61 Legendary Key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeEpic} from player's inventory 
+		else:
+			send "&4&lYou need the &d&lEpic &7key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+on rightclick on deepslate emerald ore:
+	if block under event-block is polished deepslate wall:
+		if player is holding {@KeyMineTypeLegendary}:
+			set {_random} to a random integer between 1 and 100
+			if {_random} is between 1 and 1:
+				give 1 of paper named "&6&l+1 Gen Slot" with lore "&aRight click to redeem!" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 1 and 10:
+				execute console command "eco give %player% 69420"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 11 and 20:
+				execute console command "eco give %player% 10000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 21 and 30:
+				execute console command "eco give %player% 100000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 31 and 40:
+				execute console command "eco give %player% 1000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 41 and 50:
+				execute console command "eco give %player% 10000000"
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 51 and 60:
+				execute console command "tokeneco add %player% 10"
+				send "&aYou got &6Ⓣ10 &rfrom legendary key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 61 and 70:
+				execute console command "tokeneco add %player% 100"
+				send "&aYou got &6Ⓣ100 &rfrom legendary key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 71 and 80:
+				execute console command "tokeneco add %player% 1000"
+				send "&aYou got &6Ⓣ1000 &rfrom legendary key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 81 and 90:
+				execute console command "tokeneco add %player% 10000"
+				send "&aYou got &6Ⓣ10000 &rfrom legendary key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 91 and 98:
+				execute console command "tokeneco add %player% 100000"
+				send "&aYou got &6Ⓣ100000 &rfrom legendary key" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+			else if {_random} is between 98 and 100:
+				give random element of {diamondgens::*} to player
+				send title "&aYou Got A Gen" with subtitle "&61 End Game Gen" to player
+				play sound "ENTITY_PLAYER_LEVELUP" at volume 100 and pitch 0.90 for player
+				remove 1 of {@KeyMineTypeLegendary} from player's inventory 
+		else:
+			send "&4&lYou need the &6&lLegendary &7key &4to open this crate!"
+			play sound "ENTITY_VILLAGER_NO" at volume 100 and pitch 1 for player
+
+command /daily:
+	trigger:
+		set {_waited} to difference between {daily.%player%.lastused} and now
+		if {_waited} is less than 24 hours:
+			send "You have to wait %difference between 24 hours and {_waited}% before you can use this command again!"
+			stop
+
+		player doesn't have space for a tripwire hook:
+			send "You do not have enough space in your inventory to hold the (@KeyDailyName)!"
+			stop
+
+		add 1 to {kb.%player%.daily}
+		send "&6&lDaily &7Key&r Stored In KeyBag"
+
+		set {daily.%player%.lastused} to now
+
+command /reset_dailykey <offline player>:
+    permission: op
+    trigger:
+        set {daily.%arg-1%.lastused} to 0
+        send "reset %arg-1% time to 0." 
+
+command /keyget <text> [<player>]:
+	permission: op
+	trigger:
+		if arg-2 is set:
+			set {_p} to arg-2
+		else:
+			set {_p} to player
+		if arg-1 is "daily":
+			give {_p} 1 {@KeyDailyType} named {@KeyDailyName} with lore {@KeyLore}
+		if arg-1 is "diamond":
+			give {_p} 1 {@KeyDiamondType} named {@KeyDiamondName} with lore {@KeyLore}
+		if arg-1 is "emerald":
+			give {_p} 1 {@KeyEmeraldType} named {@KeyEmeraldName} with lore {@KeyLore}
+		if arg-1 is "common":
+			give {_p} 1 {@KeyMineTypeCommon} named {@KeyMineNameCommon} with lore {@KeyLore}
+		if arg-1 is "uncommon":
+			give {_p} 1 {@KeyMineTypeUncommon} named {@KeyMineNameUncommon} with lore {@KeyLore}
+		if arg-1 is "rare":
+			give {_p} 1 {@KeyMineTypeRare} named {@KeyMineNameRare} with lore {@KeyLore}
+		if arg-1 is "epic":
+			give {_p} 1 {@KeyMineTypeEpic} named {@KeyMineNameEpic} with lore {@KeyLore}
+		if arg-1 is "legendary":
+			give {_p} 1 {@KeyMineTypeLegendary} named {@KeyMineNameLegendary} with lore {@KeyLore}

@@ -1,0 +1,542 @@
+command /storage:
+	aliases: /sell
+	trigger:
+		set {_zombies} to {bp.%player%.Zombie} * 25
+		set {_skeletons} to {bp.%player%.Skeleton} * 50
+		set {_strays} to {bp.%player%.Stray} * 65
+		set {_silverfish} to {bp.%player%.Silverfish} * 80
+		set {_sheep} to {bp.%player%.Sheep} * 100
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120
+		set {_pigs} to {bp.%player%.Pig} * 135
+		set {_witch} to {bp.%player%.Witch} * 150
+		set {_endermites} to {bp.%player%.Endermite} * 175
+		set {_cows} to {bp.%player%.Cow} * 185
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208
+		set {_husks} to {bp.%player%.Husk} * 214
+		set {_pillagers} to {bp.%player%.Pillager} * 220
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225
+		set {_striders} to {bp.%player%.Strider} * 230
+		set {_foxes} to {bp.%player%.foxes} * 235
+		set {_wolves} to {bp.%player%.wolves} * 240
+		set {_creeper} to {bp.%player%.creeper} * 245
+		set {_drowned} to {bp.%player%.drowned} * 250
+		set {_illusioner} to {bp.%player%.illusioner} * 275
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		
+		create a gui with virtual chest inventory with 6 rows named "&e&lMob Loot":
+			wait 1 tick
+			set {_a} to 0
+			loop 9 times:
+				make gui slot {_a} with black stained glass pane named "&7"
+				add 1 to {_a}
+			make gui slot 9 with black stained glass pane named "&7"
+			make gui slot 10 with skull of ("Zombie" parsed as an offline player) named "&aZombies" with lore "%{bp.%player%.Zombie}% Zombies" and "Sell for %{bp.%player%.Zombie} * 25%"
+			make gui slot 11 with skull of ("Skeleton" parsed as an offline player) named "&aSkeletons" with lore "%{bp.%player%.Skeleton}% Skeletons" and "Sell for %{bp.%player%.Skeleton} * 50%"
+			make gui slot 12 with skull of ("kwonwoojung" parsed as an offline player) named "&aStrays" with lore "%{bp.%player%.Stray}% Strays" and "Sell for %{bp.%player%.Stray} * 65%"
+			make gui slot 13 with skull of ("silverskin" parsed as an offline player) named "&aSilverfish" with lore "%{bp.%player%.Silverfish}% Silverfish" and "Sell for %{bp.%player%.Silverfish} * 80%"
+			make gui slot 14 with skull of ("Sheep" parsed as an offline player) named "&aSheep" with lore "%{bp.%player%.Sheep}% Sheep" and "Sell for %{bp.%player%.Sheep} * 100%"
+			make gui slot 15 with skull of ("Wither_Skeleton" parsed as an offline player) named "&aWither Skeletons" with lore "%{bp.%player%.WitherSkeleton}% Wither Skeletons" and "Sell for %{bp.%player%.WitherSkeleton} * 120%"
+			make gui slot 16 with skull of ("nokpopbob" parsed as an offline player) named "&aPigs" with lore "%{bp.%player%.Pig}% Pigs" and "Sell for %{bp.%player%.Pig} * 135%"
+			make gui slot 17 with black stained glass pane
+			make gui slot 18 with black stained glass pane
+			make gui slot 19 with skull of ("SailorMerkur" parsed as an offline player) named "&aWitchs" with lore "%{bp.%player%.Witch}% Witches" and "Sell for %{bp.%player%.Witch} * 150%"
+			make gui slot 20 with skull of ("MaxiSaurusRex_" parsed as an offline player) named "&aEndermites" with lore "%{bp.%player%.Endermite}% Endermites" and "Sell for %{bp.%player%.Endermite} * 175%"
+			make gui slot 21 with skull of ("Cow" parsed as an offline player) named "&aCows" with lore "%{bp.%player%.Cow}% Cows" and "Sell for %{bp.%player%.Cow} * 185%"
+			make gui slot 22 with skull of ("Mooshroom" parsed as an offline player) named "&aMooshrooms" with lore "%{bp.%player%.Mooshroom}% Mooshrooms" and "Sell for %{bp.%player%.Mooshroom} * 185%"
+			make gui slot 23 with skull of ("Lootek" parsed as an offline player) named "&aZombie Villagers" with lore "%{bp.%player%.Zombievillager}% Cows" and "Sell for %{bp.%player%.Zombievillager} * 208%"
+			make gui slot 24 with skull of ("Friedsalmon" parsed as an offline player) named "&aHusks" with lore "%{bp.%player%.Husk}% Cows" and "Sell for %{bp.%player%.Husk} * 214%"
+			make gui slot 25 with skull of ("Pillager" parsed as an offline player) named "&aPillagers" with lore "%{bp.%player%.Pillager}% Pillagers" and "Sell for %{bp.%player%.Pillager} * 220%"
+			make gui slot 26 with black stained glass pane
+			make gui slot 27 with black stained glass pane
+			make gui slot 28 with skull of ("ShaloOng" parsed as an offline player) named "&aSnow Golems" with lore "%{bp.%player%.SnowGolem}% Snow SnowGolems" and "Sell for %{bp.%player%.SnowGolem} * 225%"
+			make gui slot 29 with skull of ("Strider" parsed as an offline player) named "&aStriders" with lore "%{bp.%player%.Strider}% Striders" and "Sell for %{bp.%player%.Strider} * 230%"
+			make gui slot 30 with skull of ("Fox" parsed as an offline player) named "&aFoxes" with lore "%{bp.%player%.foxes}% Foxes" and "Sell for %{bp.%player%.foxes} * 235%"
+			make gui slot 31 with skull of ("Wolf" parsed as an offline player) named "&aWolves" with lore "%{bp.%player%.wolves}% Wolves" and "Sell for %{bp.%player%.wolves} * 240%"
+			make gui slot 32 with skull of ("Creeper" parsed as an offline player) named "&aCreepers" with lore "%{bp.%player%.creeper}% Creepers" and "Sell for %{bp.%player%.creeper} * 245%"
+			make gui slot 33 with skull of ("Drowned" parsed as an offline player) named "&aDrowneds" with lore "%{bp.%player%.drowned}% Drowneds" and "Sell for %{bp.%player%.drowned} * 250%"
+			make gui slot 34 with skull of ("Illusioner" parsed as an offline player) named "&aIllusioner" with lore "%{bp.%player%.illusioner}% Illusioners" and "Sell for %{bp.%player%.illusioner} * 275%"
+			make gui slot 35 with black stained glass pane
+		
+			make gui slot 36 with blaze rod named "&cSell items in storage" with lore "1X Mutiplier" and  "&bSell for %{_total}%":
+				close player's inventory
+				make player run command "/sellstock" as op
+			
+			if {multiplierone%player's uuid%} is true:
+				make gui slot 37 with blaze rod named "&cSell items in storage" with lore "1.5X Mutiplier" and "&bSell for %{_total} * 1.5%":
+					close player's inventory
+					make player run command "/sellstockfor1" as op
+			else:
+				make gui slot 37 with black stained glass pane named "&7"
+
+			if {multipliertwo%player's uuid%} is true:
+				make gui slot 38 with blaze rod named "&cSell items in storage" with lore "2X Mutiplier" and "&bSell for %{_total} * 2%":
+					close player's inventory
+					make player run command "/sellstockfor2" as op
+			else:
+				make gui slot 38 with black stained glass pane named "&7"
+			if {multipliertwofive%player's uuid%} is true:
+				make gui slot 39 with blaze rod named "&cSell items in storage" with lore "2.5X Mutiplier" and "&bSell for %{_total} * 2.5%":
+					close player's inventory
+					make player run command "/sellstockfor3" as op
+			else:
+				make gui slot 39 with black stained glass pane named "&7"
+			if {multiplierthree%player's uuid%} is true:
+				make gui slot 40 with blaze rod named "&cSell items in storage" with lore "3X Mutiplier" and "&bSell for %{_total} * 3%":
+					close player's inventory
+					make player run command "/sellstockfor4" as op
+			else:
+				make gui slot 40 with black stained glass pane named "&7"
+
+			if {multiplierthreefive%player's uuid%} is true:
+				make gui slot 41 with blaze rod named "&cSell items in storage" with lore "3.5X Mutiplier" and "&bSell for %{_total} * 3.5%":
+					close player's inventory
+					make player run command "/sellstockfor5" as op
+			else:
+				make gui slot 41 with black stained glass pane named "&7"
+
+			if {multiplierfour%player's uuid%} is true:
+				make gui slot 42 with blaze rod named "&cSell items in storage" with lore "4X Mutiplier" and "&bSell for %{_total} * 4%":
+					close player's inventory
+					make player run command "/sellstockfor6" as op
+			else:
+				make gui slot 42 with black stained glass pane named "&7"
+				
+			if {multiplierfive%player's uuid%} is true:
+				make gui slot 43 with blaze rod named "&cSell items in storage" with lore "5X Mutiplier" and "&bSell for %{_total} * 5%":
+					close player's inventory
+					make player run command "/sellstockfor7" as op
+			else:
+				make gui slot 43 with black stained glass pane named "&7"
+			
+			set {_a} to 44
+			loop 10 times:
+				make gui slot {_a} with black stained glass pane named "&7"
+				add 1 to {_a}
+		open last gui for player
+
+
+command /sellstock:
+	permission: op
+	trigger:
+		set {_zombies} to {bp.%player%.Zombie} * 25
+		set {_skeletons} to {bp.%player%.Skeleton} * 50
+		set {_strays} to {bp.%player%.Stray} * 65
+		set {_silverfish} to {bp.%player%.Silverfish} * 80
+		set {_sheep} to {bp.%player%.Sheep} * 100
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120
+		set {_pigs} to {bp.%player%.Pig} * 135
+		set {_witch} to {bp.%player%.Witch} * 150
+		set {_endermites} to {bp.%player%.Endermite} * 175
+		set {_cows} to {bp.%player%.Cow} * 185
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208
+		set {_husks} to {bp.%player%.Husk} * 214
+		set {_pillagers} to {bp.%player%.Pillager} * 220
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225
+		set {_striders} to {bp.%player%.Strider} * 230
+		set {_foxes} to {bp.%player%.foxes} * 235
+		set {_wolves} to {bp.%player%.wolves} * 240
+		set {_creeper} to {bp.%player%.creeper} * 245 
+		set {_drowned} to {bp.%player%.drowned} * 250
+		set {_illusioner} to {bp.%player%.illusioner} * 275
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+command /sellstockfor1:
+	permission: op
+	trigger:
+		set {_zombies} to {bp.%player%.Zombie} * 25 * 1.5
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * 1.5
+		set {_strays} to {bp.%player%.Stray} * 65 * 1.5
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * 1.5
+		set {_sheep} to {bp.%player%.Sheep} * 100 * 1.5
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * 1.5
+		set {_pigs} to {bp.%player%.Pig} * 135 * 1.5
+		set {_witch} to {bp.%player%.Witch} * 150 * 1.5
+		set {_endermites} to {bp.%player%.Endermite} * 175 * 1.5
+		set {_cows} to {bp.%player%.Cow} * 185 * 1.5
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * 1.5
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * 1.5
+		set {_husks} to {bp.%player%.Husk} * 214 * 1.5
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * 1.5
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * 1.5
+		set {_striders} to {bp.%player%.Strider} * 230 * 1.5
+		set {_foxes} to {bp.%player%.foxes} * 235 * 1.5
+		set {_wolves} to {bp.%player%.wolves} * 240 * 1.5
+		set {_creeper} to {bp.%player%.creeper} * 245 * 1.5
+		set {_drowned} to {bp.%player%.drowned} * 250 * 1.5
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * 1.5
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+command /sellstockfor2:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 2
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor} 
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0 
+		set {bp.%player%.wolves} to 0 
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+command /sellstockfor3:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 2.5
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor}
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+command /sellstockfor4:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 3
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor}
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0 
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+
+command /sellstockfor5:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 3.5
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor}
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+
+command /sellstockfor6:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 4
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor}
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0 
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+
+
+
+command /sellstockfor7:
+	permission: op
+	trigger:
+		set {_multitosellfor} to 5
+		set {_zombies} to {bp.%player%.Zombie} * 25 * {_multitosellfor}
+		set {_skeletons} to {bp.%player%.Skeleton} * 50 * {_multitosellfor}
+		set {_strays} to {bp.%player%.Stray} * 65 * {_multitosellfor}
+		set {_silverfish} to {bp.%player%.Silverfish} * 80 * {_multitosellfor}
+		set {_sheep} to {bp.%player%.Sheep} * 100 * {_multitosellfor}
+		set {_witherskeletons} to {bp.%player%.WitherSkeleton} * 120 * {_multitosellfor}
+		set {_pigs} to {bp.%player%.Pig} * 135 * {_multitosellfor}
+		set {_witch} to {bp.%player%.Witch} * 150 * {_multitosellfor}
+		set {_endermites} to {bp.%player%.Endermite} * 175 * {_multitosellfor}
+		set {_cows} to {bp.%player%.Cow} * 185 * {_multitosellfor}
+		set {_mooshrooms} to {bp.%player%.Mooshroom} * 195 * {_multitosellfor}
+		set {_zombievillagers} to {bp.%player%.Zombievillager} * 208 * {_multitosellfor}
+		set {_husks} to {bp.%player%.Husk} * 214 * {_multitosellfor}
+		set {_pillagers} to {bp.%player%.Pillager} * 220 * {_multitosellfor}
+		set {_SnowGolems} to {bp.%player%.SnowGolem} * 225 * {_multitosellfor}
+		set {_striders} to {bp.%player%.Strider} * 230 * {_multitosellfor}
+		set {_foxes} to {bp.%player%.foxes} * 235 * {_multitosellfor}
+		set {_wolves} to {bp.%player%.wolves} * 240 * {_multitosellfor}
+		set {_creeper} to {bp.%player%.creeper} * 245 * {_multitosellfor}
+		set {_drowned} to {bp.%player%.drowned} * 250 * {_multitosellfor}
+		set {_illusioner} to {bp.%player%.illusioner} * 275 * {_multitosellfor} 
+
+		set {bp.%player%.Zombie} to 0
+		set {bp.%player%.Skeleton} to 0
+		set {bp.%player%.Stray} to 0
+		set {bp.%player%.Silverfish} to 0
+		set {bp.%player%.Sheep} to 0
+		set {bp.%player%.WitherSkeleton} to 0
+		set {bp.%player%.Pig} to 0
+		set {bp.%player%.Witch} to 0
+		set {bp.%player%.Endermite} to 0
+		set {bp.%player%.Cow} to 0
+		set {bp.%player%.Mooshroom} to 0
+		set {bp.%player%.Zombievillager} to 0
+		set {bp.%player%.Husk} to 0
+		set {bp.%player%.Pillager} to 0
+		set {bp.%player%.SnowGolem} to 0 
+		set {bp.%player%.Strider} to 0
+		set {bp.%player%.foxes} to 0
+		set {bp.%player%.wolves} to 0
+		set {bp.%player%.creeper} to 0
+		set {bp.%player%.drowned} to 0
+		set {bp.%player%.illusioner} to 0
+		
+		set {_total} to {_zombies} + {_skeletons} + {_strays} + {_silverfish} + {_sheep} + {_witherskeletons} + {_pigs} + {_witch} + {_endermites} + {_cows} + {_mooshrooms} + {_zombievillagers} + {_husks} + {_pillagers} + {_SnowGolems} + {_striders} + {_foxes} + {_wolves} + {_creeper} + {_drowned} + {_illusioner}
+		add {_total} to player's balance
+		send "&4Sold for %{_total}%"
+

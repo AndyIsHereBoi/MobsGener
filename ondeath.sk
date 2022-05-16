@@ -1,0 +1,167 @@
+on death of zombie:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of zombie
+        set {_playername::*} to {_test} split at " "
+        remove "Zombie" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Zombie}
+
+on death of skeleton:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of skeleton
+        set {_playername::*} to {_test} split at " "
+        remove "Skeleton" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Skeleton}
+
+on death of stray:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of stray
+        set {_playername::*} to {_test} split at " "
+        remove "Stray" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Stray}
+
+on death of silverfish:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of silverfish
+        set {_playername::*} to {_test} split at " "
+        remove "Silverfish" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Silverfish}
+
+on death of sheep:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of sheep
+        set {_playername::*} to {_test} split at " "
+        remove "Sheep" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Sheep}
+
+on death of wither skeleton:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of wither skeleton
+        set {_playername::*} to {_test} split at " "
+        remove "WitherSkeleton" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.WitherSkeleton}
+
+on death of pig:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of pig
+        set {_playername::*} to {_test} split at " "
+        remove "Pig" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Pig}
+
+on death of witch:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of witch
+        set {_playername::*} to {_test} split at " "
+        remove "Witch" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Witch}
+
+on death of endermite:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of endermite
+        set {_playername::*} to {_test} split at " "
+        remove "Endermite" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Endermite}
+
+on death of cow:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of cow
+        set {_playername::*} to {_test} split at " "
+        remove "Cow" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Cow}
+
+on death of mooshroom:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of mooshroom
+        set {_playername::*} to {_test} split at " "
+        remove "Mooshroom" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Mooshroom}
+
+on death of zombie villager:
+    cancel drops        
+    if {killing_togl} is false:
+        set {_test} to name of zombie villager
+        set {_playername::*} to {_test} split at " "
+        remove "ZombieVillager" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Zombievillager}
+
+on death of husk:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of husk
+        set {_playername::*} to {_test} split at " "
+        remove "Husk" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Husk}
+
+on death of pillager:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of pillager
+        set {_playername::*} to {_test} split at " "
+        remove "Pillager" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Pillager}
+
+on death of snow golem:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of snow golem
+        set {_playername::*} to {_test} split at " "
+        remove "SnowGolem" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.SnowGolem}
+        
+on death of strider:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of strider
+        set {_playername::*} to {_test} split at " "
+        remove "Strider" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.Strider}
+        
+on death of fox:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of fox
+        set {_playername::*} to {_test} split at " "
+        remove "fox" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.foxes}
+        
+on death of wolf:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of wolf
+        set {_playername::*} to {_test} split at " "
+        remove "wolf" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.wolves}
+        
+on death of creeper:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of creeper
+        set {_playername::*} to {_test} split at " "
+        remove "creeper" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.creeper}
+        
+on death of drowned:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of drowned
+        set {_playername::*} to {_test} split at " "
+        remove "drowned" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.drowned}
+        
+on death of illusioner:
+    cancel drops
+    if {killing_togl} is false:
+        set {_test} to name of illusioner
+        set {_playername::*} to {_test} split at " "
+        remove "illusioner" from {_playername::*}
+        add 1 to {bp.%{_playername::*}%.illusioner}

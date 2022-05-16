@@ -1,0 +1,99 @@
+command /multi:
+	trigger:
+		create a gui with virtual chest inventory with 3 rows named "&e&lMulti Shop":
+			set {_a} to 0
+			loop 9 times:
+				make gui slot {_a} with black stained glass pane named "&7"
+				add 1 to {_a}
+			set {_a} to 18
+			loop 9 times:
+				make gui slot {_a} with black stained glass pane named "&7"
+				add 1 to {_a}
+			make gui slot 9 with black stained glass pane named "&7"
+			make gui slot 10 with blaze rod named "&61.5X Sell mutiplier" with lore "&c&lPrice: &r&c25,000,000":
+				close player's inventory
+				make player run command "/multione" as op
+			make gui slot 11 with blaze rod named "&62X Sell mutiplier" with lore "&c&lPrice: &r&c100,000,000":
+				close player's inventory
+				make player run command "/multitwo" as op
+			make gui slot 12 with blaze rod named "&62.5X Sell mutiplier" with lore "&c&lPrice: &r&c200,000,000":
+				close player's inventory
+				make player run command "/multitwofive" as op
+			make gui slot 13 with blaze rod named "&63X Sell mutiplier" with lore "&c&lPrice: &r&c350,000,000":
+				close player's inventory
+				make player run command "/multithree" as op
+			make gui slot 14 with blaze rod named "&63.5X Sell mutiplier" with lore "&c&lPrice: &r&c600,000,000":
+				close player's inventory
+				make player run command "/multithreefive" as op
+			make gui slot 15 with blaze rod named "&64X Sell mutiplier" with lore "&c&lPrice: &r&c800,000,000":
+				close player's inventory
+				make player run command "/multifour" as op
+			make gui slot 16 with blaze rod named "&65X Sell mutiplier" with lore "&c&lPrice: &r&c1,500,000,000":
+				close player's inventory
+				make player run command "/multifive" as op
+			make gui slot 17 with black stained glass pane named "&7"
+		open last gui for player
+
+command /multione:
+	permission: op
+	trigger:
+		if player's balance >= 25000000:
+			remove 25000000 from player's balance
+			set {multiplierone%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $25,000,000 to buy this."
+
+
+command /multitwo:
+	permission: op
+	trigger:
+		if player's balance >= 100000000:
+			remove 100000000 from player's balance
+			set {multipliertwo%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $100,000,000 to buy this."
+
+command /multitwofive:
+	permission: op
+	trigger:
+		if player's balance >= 200000000:
+			remove 200000000 from player's balance
+			set {multipliertwofive%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $200,000,000 to buy this."
+
+command /multithree:
+	permission: op
+	trigger:
+		if player's balance >= 350000000:
+			remove 350000000 from player's balance
+			set {multiplierthree%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $350,000,000 to buy this."
+
+command /multithreefive:
+	permission: op
+	trigger:
+		if player's balance >= 600000000:
+			remove 600000000 from player's balance
+			set {multiplierfour%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $600,000,000 to buy this."
+
+command /multifour:
+	permission: op
+	trigger:
+		if player's balance >= 600000000:
+			remove 600000000 from player's balance
+			set {multiplierfour%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $600,000,000 to buy this."
+
+command /multifive:
+	permission: op
+	trigger:
+		if player's balance >= 1500000000:
+			remove 1500000000 from player's balance
+			set {multiplierfive%player's uuid%} to true
+		else:
+			send "&c&lError: &fYou need $1,500,000,000 to buy this."

@@ -1,0 +1,70 @@
+
+
+#Function to format the leaderboards.
+function formatComma(n: number) :: text:
+	set {_data} to "GG,100|VT,63|ND,60|CD,57|STD,54|SD,51|QD,48|QTD,45|TD,42|DD,39|UD,36|DC,33|NN,30|OC,27|SP,24|ST,21|QT,18|Q,15|T,12|B,9|M,6|k,3"
+	loop split {_data} at "|":
+		set {_s::*} to split loop-value at ","
+		{_n} >= 10 ^ {_s::2} parsed as number
+		set {_result} to {_n} / 10 ^ {_s::2} parsed as number
+		set {_split::*} to split "%{_result}%" at "."
+		set {_result} to "%{_split::1}%.%first 2 characters of {_split::2}%"
+		set {_result} to "%{_split::1}%" if (first 2 characters of {_split::2}) is not set
+		return "%{_result}%%{_s::1}%"
+	return "%{_n}%"
+
+
+
+command /top [<text>]:
+	aliases: /leaderboard
+	trigger:
+
+		#Token Top Leaderboard
+
+		if arg-1 is "tokens":
+			delete {top-tokens::*}
+			set {top-tokens::*} to sorted {tokens::*} from highest to lowest with format "@index @value"
+
+			set {_num} to 1
+			send "&8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+			send "&7"
+			send "&3&lToken Top:"
+			send "&7"
+			loop {top-tokens::*}:
+				set {_info::*} to loop-value split at " "
+				if {leaderboardblacklist::*} does not contain {_info::1}:
+					set {_player} to {_info::1} parsed as offline player
+					set {_score} to {_info::2} parsed as number
+					send "&3##%{_num}%. &f%{_player}% &8» &bⓉ%formatComma({_score})%" to player
+					add 1 to {_num}
+				if {_num} is greater than 10:
+					stop loop
+			send "&7"
+			send "&8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+		#Blocks Mined Leaderboard
+
+		else if arg-1 is "blocks":
+			delete {top-blocks::*}
+			set {top-blocks::*} to sorted {PickaxeCounter::*} from highest to lowest with format "@index @value"
+
+			set {_num} to 1
+			send "&8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+			send "&7"
+			send "&3&lMined Top:"
+			send "&7"
+			loop {top-blocks::*}:
+				set {_info::*} to loop-value split at " "
+				if {leaderboardblacklist::*} does not contain {_info::1}:
+					set {_player} to {_info::1} parsed as offline player
+					set {_score} to {_info::2} parsed as number
+					send "&3##%{_num}%. &f%{_player}% &8» &bⓂ%formatComma({_score})%" to player
+					add 1 to {_num}
+				if {_num} is greater than 10:
+					stop loop
+			send "&7"
+			send "&8&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+		#If the leaderboard doesn't exist, throw an error in chat.
+		else:
+			send "&c&lError: &7Please specify a leaderboard to view! &7(&etokens/blocks&7)"

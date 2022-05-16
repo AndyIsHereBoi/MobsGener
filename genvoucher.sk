@@ -1,0 +1,10 @@
+on right click:
+  held item is paper named "&6&l+1 Gen Slot"
+  remove 1 paper named "&6&l+1 Gen Slot" from player's inventory
+  execute console command "/addgenslots %player% 1"
+  
+command /getgenvoucher:
+  permission: skript.getgenvoucher
+  permission message: &cYou do not have the correct permission to execute this command!
+  trigger:
+    give player paper named "&6&l+1 Gen Slot"

@@ -1,0 +1,37 @@
+command /start:
+  permission: skript.start
+  permission message: &cYou do not have the correct permission to execute this command! please contact the owners.
+  trigger:
+    if {started::%player's uuid%} is not true:
+      teleport player to {plotsworld}
+      set {started::%player's uuid%} to true
+      make player run command "Startertools" as op
+      give player hay block named "&6&lZombie Generator"
+      make player run command "p a" as op
+      send "&l&2Do /shop for shop, and go to Gens category to buy more gens, genslots, and more! &6To sell your loot, do &c/storage&6 and click the blaze rod.  &cSneak and mine ur gen to upgrade. &eSuffocation or lava or fall damage traps are the best for farming afk" to player
+    else:
+      send "You already started! You can only do this once per season."
+
+command /startertools:
+    permission: skript.start
+    trigger:
+        give player stone sword
+        give player stone pickaxe
+        give player stone axe
+        give player stone shovel
+
+
+
+command /skriptsetplots:
+	permission: op
+	trigger:
+		set {plotsworld} to player's location
+
+command /resetstart:
+    permission: op
+    trigger:
+        if executor is not console:
+            send "&cFor safety reasons this command can only be executed through console!" to player
+            stop
+        delete {started::*}
+        broadcast "&c&l/start was reset!"

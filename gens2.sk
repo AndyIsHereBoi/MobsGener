@@ -1,0 +1,96 @@
+options:
+	cctoecc: 700000000
+	octocc: 650000000
+	wctooc: 600000000
+	ectowc: 550000000
+	cbtoec: 500000000
+	redtocb: 450000000
+	bluetored: 40000000
+	purpletoblue: 35000000
+	greentopurple: 30000000
+	yellowtogreen: 27000000
+	lbtoyellow: 25000000
+	whitetolb: 21000000
+	emeraldtowhite: 16000000
+	diamondtoemerald: 11000000
+	goldtodiamond: 8000000
+	irontogold: 500000
+	coaltoiron: 300000
+	melontocoal: 100000
+	pumpkintomelon: 50000
+	haytopumpkin: 10000
+	servername: MobsGener
+    
+on place of emerald block or diamond block or gold block or iron block or coal block or melon or pumpkin or hay block or white glazed terracotta or light blue glazed terracotta or yellow glazed terracotta or lime glazed terracotta or purple glazed terracotta or blue glazed terracotta or red glazed terracotta or copper block or exposed copper or weathered copper or oxidized copper or cut copper or exposed cut copper:
+	set {_p} to player
+	set {_u} to player's uuid
+	if {gc::%{_u}%} >= {gencap::%{_u}%}: 
+		cancel event
+		send "&f" to {_p}
+		send "&a&l{@servername} &7» &aYou have reached the max generator limit" to {_p}
+		send "&f" to {_p}
+		stop
+	wait 2 ticks
+	if event-block is a hay block:
+		add location of event-block to {gens::%{_u}%::wheat::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a emerald block:
+		add location of event-block to {gens::%{_u}%::emerald::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a diamond block:
+		add location of event-block to {gens::%{_u}%::diamond::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a gold block:
+		add location of event-block to {gens::%{_u}%::gold::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a iron block:
+		add location of event-block to {gens::%{_u}%::iron::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a coal block:
+		add location of event-block to {gens::%{_u}%::coal::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a melon:
+		add location of event-block to {gens::%{_u}%::melon::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a pumpkin:
+		add location of event-block to {gens::%{_u}%::pumpkin::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a white glazed terracotta:
+		add location of event-block to {gens::%{_u}%::white::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a light blue glazed terracotta:
+		add location of event-block to {gens::%{_u}%::lb::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a yellow glazed terracotta:
+		add location of event-block to {gens::%{_u}%::yellow::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a lime glazed terracotta:
+		add location of event-block to {gens::%{_u}%::lime::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a purple glazed terracotta:
+		add location of event-block to {gens::%{_u}%::purple::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a blue glazed terracotta:
+		add location of event-block to {gens::%{_u}%::blue::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a red glazed terracotta:
+		add location of event-block to {gens::%{_u}%::red::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a copper block:
+		add location of event-block to {gens::%{_u}%::cb::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a exposed copper:
+		add location of event-block to {gens::%{_u}%::ec::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a weathered copper:
+		add location of event-block to {gens::%{_u}%::wc::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a oxidized copper:
+		add location of event-block to {gens::%{_u}%::oc::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a cut copper:
+		add location of event-block to {gens::%{_u}%::cc::*}
+		add 1 to {gc::%{_u}%}
+	if event-block is a exposed cut copper:
+		add location of event-block to {gens::%{_u}%::ecc::*}
+		add 1 to {gc::%{_u}%}

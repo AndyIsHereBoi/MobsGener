@@ -1,0 +1,27 @@
+command /staffchat [<text>]:
+    aliases: /sc
+    trigger:
+
+        if player does not have permission "sc.skript":
+            send "&eYou do not have the required permission to do this!"    
+            stop
+        
+        if arg-1 is not set:
+            if {staffchat::%player's uuid%} is true:
+                set {staffchat::%player's uuid%} to false
+                send "&eStaff chat turned &coff"
+            else:
+                set {staffchat::%player's uuid%} to true
+                send "&eStaff chat turned &aon"    
+        else:
+            sendStaffMessage(player, arg-1)
+
+on chat:
+    if {staffchat::%player's uuid%} is true:
+        cancel event
+        sendStaffMessage(player, message)
+
+function sendStaffMessage(p: player, message: text):
+    loop all players:
+        if loop-player has permission "sc.skript":
+            send "&a&l[Staff-Chat] &6%{_p}%: &7%formatted {_message}%" to loop-player

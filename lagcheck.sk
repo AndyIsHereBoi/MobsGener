@@ -1,0 +1,6 @@
+every 5 seconds:
+    loop all players:
+        if amount of entities in radius 35 of loop-player > 300:
+            loop all players:
+                if loop-player-2 has permission "skript.lag.notify":
+                    send "&c%loop-player-1% might be lagging the server." to loop-player-2

@@ -1,0 +1,220 @@
+command /discord:
+	trigger:
+		send formatted "<sgt:/spawn><link:https://discord.gg/vRJ2nsaHPJ>Click here to join! (or https://discord.gg/vRJ2nsaHPJ)"
+
+on shoot:
+    if shooter is a skeleton or stray or pillager:
+        cancel event
+		
+on join:
+  if  {tokens::%player's uuid%} is not set:
+    set {tokens::%player's uuid%} to 0
+  
+  teleport player to {spawn}
+
+every 5 seconds:
+	loop all players:
+		if {%loop-player's uuid%.gentoggle} is not set:
+			set {%loop-player's uuid%.gentoggle} to true
+	
+command /pl:
+	trigger:
+		send "a" to console
+		
+command /plugins:
+	trigger:
+		send "a" to console
+command /bukkit:pl:
+	trigger:
+		send "a" to console
+		
+command /bukkit:plugins:
+	trigger:
+		send "a" to console
+command /rules:
+    usage: &cUsage: /rules
+    trigger:
+        send "&6----------------------------"
+        send "&4Rules:"
+        send "&31. MAX 4 total players per plot, including alts and team mates"
+        send "&32. No boosting/giving other players items as an advantage"
+        send "&33. No lag machines"
+        send "&34. Follow all staffs instructions. If they ask you to do something do it."
+        send "&35. Do not cheat to nuke, xray (what ya ganna xray????) or use any other hacks. You have free fly so no reason to fly hack" 
+        send "&36. No macros or anything that a normal user cannot normaly use (such as macros)"
+        send "&37. No AFK MACHINES /warp limbo"
+        send "&6----------------------------"
+        send "&4Chat Rules"
+        send "&31. No spamming"
+        send "&32. No racial slurs or anything that users under the age of 10 should not hear"
+        send "&6----------------------------"
+
+command /help:
+    usage: &cUsage: /help
+    trigger:
+        send "&6----------------------------"
+        send "&cHelp commands to get started"
+        send "&aDo /start to get started"
+        send "&aPlace your generator!"
+        send "&aYou do have access to free /fly"
+        send "&6----------------------------"
+        send "&cGenerator use and how to upgrade"
+        send "&aGenerators spawn mobs, kill them to make money!"
+        send "&aTo upgrade generators shift+left click them"
+        send "&aTo pick up generators just left click them "
+        send "&c(Disclaimer don't have a full inventory)"
+        send "&aToggle generators with the command /togglegen"
+        send "&aTo see the full list of generators do /genlist"
+        send "&6----------------------------"
+        send "&7MORE TO COME IN THE FUTURE"
+        send "&7UPDATES + BUGS BEING WORKED ON EVERYDAY"
+        send "&6----------------------------"
+        send "&7If you have any questions or want to apply for a position"
+        send "&7Feel free to join the discord or do /discord!"
+        send "&7https://discord.gg/FwqVnTh9pN"
+        send "&6----------------------------"
+		
+command /minecraft:me:
+	trigger:
+		send "lol" to player
+command /minecraft:say:
+	trigger:
+		send "lol" to player
+command /say:
+	trigger:
+		send "lol" to player
+
+command /minecraft:w:
+	trigger:
+		send "lol" to player
+command /w:
+	trigger:
+		send "lol" to player
+command /tm:
+	trigger:
+		send "lol" to player
+command /teammessage:
+	trigger:
+		send "lol" to player
+command /minecraft:tm:
+	trigger:
+		send "lol" to player
+command /minecraft:teammessage:
+	trigger:
+		send "lol" to player
+command /minecraft:teammsg:
+	trigger:
+		send "lol" to player
+command /teammsg:
+	trigger:
+		send "lol" to player
+command /minecraft:tell:
+	trigger:
+		send "lol" to player
+
+command /spawn:
+	trigger:
+		teleport player to {spawn}
+	
+
+command /skriptsetspawn:
+	permission: op
+	trigger:
+		set {spawn} to player's location
+		
+every 3 seconds:
+	kill all withers
+	
+	
+on first join:
+  make console execute command "/broadcast %player% joined for the first time."
+  wait 1 seconds
+  teleport player to {spawn}
+  make player execute command "/spawn"
+  send "&aMobsGener> &3 Welcome to MobsGener! I'll help you out with a little tutorial." to player
+  wait 3 seconds
+  send "&aMobsGener> &3 To start, type &3/start&3!" to player
+  wait 2 seconds
+  send "&aMobsGener> &3 Once you have a plot, place your zombie generator to start generating mobs!"
+  wait 4 seconds
+  send "&aMobsGener> &3 You can make a suffocation trap, but fall damage is the best way."
+  wait 4 seconds
+  send "&aMobsGener> &3 To sell your loot, do &e/storage&3."
+  wait 2 seconds
+  send "&aMobsGener> &3 To get more gens, do &e/shop&3 and navigate to the &3&lGens&3 category."
+  wait 5 seconds
+  send "&aMobsGener> &3 You can place up to 50 gens. To buy more you can buy some gen vouchers in the gen category in the shop."
+  wait 5 seconds
+  send "&aMobsGener> &3 Thats the end of the tutorial!" 
+  
+command /tutorial:
+	trigger:
+		send "&aMobsGener> &3 Welcome to MobsGener! I'll help you out with a little tutorial." to player
+		wait 5 seconds
+		send "&aMobsGener> &3 To start, type &3/start&3!" to player
+		wait 5 seconds
+		send "&aMobsGener> &3 Once you have a plot, place your zombie generator to start generating mobs!"
+		wait 5 seconds
+		send "&aMobsGener> &3 You can make a suffocation trap, but fall damage is the best way."
+		wait 5 seconds
+		send "&aMobsGener> &3 To sell your loot, do &e/storage&3."
+		wait 5 seconds
+		send "&aMobsGener> &3 To get more gens, do &e/shop&3 and navigate to the &3&lGens&3 category."
+		wait 5 seconds
+		send "&aMobsGener> &3 You can place up to 50 gens. To buy more you can buy some gen vouchers in the gen category in the shop."
+		wait 5 seconds
+		send "&aMobsGener> &3 Thats the end of the tutorial!" 
+  
+command /toggleallgen:
+	permission: op
+	trigger:
+		if {allgenstoggled} is not set:
+			set {allgenstoggled} to true
+		if {allgenstoggled} is false:
+			set {allgenstoggled} to true
+			send "&a&lMobsGener &8- &7Your gens &cwill now not spawn."
+		else if {allgenstoggled} is true:
+			set {allgenstoggled} to false
+			send "&a&lMobsGener &8- &7Your gens &awill now spawn."
+
+
+command /mining:
+    permission: Admin
+    permission message: &fUnknown command. Type "/help" for help.
+    trigger:
+        if {mining} is not set:
+            set {mining} to false
+            broadcast "&cMining has been disabled. Let us rise some enchants."
+        else if {mining} is false:
+            delete {mining}
+            broadcast "&aMining has been enabled."
+			
+			
+command /lightmode:
+	aliases: /light
+	cooldown: 3 seconds
+	cooldown message: &cThis command is on cooldown! Please try again in %remaining time%&c.
+	trigger:
+		if {%player's uuid%.darkmode} is set:
+			delete {%player's uuid%.darkmode}
+		set player's time to 12:00
+		send "&5Set time to day!"
+		
+command /darkmode:
+	aliases: /dark
+	cooldown: 3 seconds
+	cooldown message: &cThis command is on cooldown! Please try again in %remaining time%&c.
+	trigger:
+		if {%player's uuid%.darkmode} isn't set:
+			set {%player's uuid%.darkmode} to 1
+			set player's time to 03:00
+		send "&5Set time to night!"
+		
+command /fling [<offline player>]:
+    permission: op
+    trigger:
+        push arg-1 upwards at speed 150
+        push arg-1 backwards at speed 150
+		
+on walking on slime block:
+	push player upwards with force 2

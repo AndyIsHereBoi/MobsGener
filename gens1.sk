@@ -1,0 +1,206 @@
+options:
+	cctoecc: 70000000
+	octocc: 65000000
+	wctooc: 60000000
+	ectowc: 55000000
+	cbtoec: 50000000
+	redtocb: 45000000
+	bluetored: 4000000
+	purpletoblue: 3500000
+	greentopurple: 3000000
+	yellowtogreen: 2700000
+	lbtoyellow: 2500000
+	whitetolb: 2100000
+	emeraldtowhite: 1600000
+	diamondtoemerald: 1100000
+	goldtodiamond: 8000000
+	irontogold: 500000
+	coaltoiron: 300000
+	melontocoal: 100000
+	pumpkintomelon: 50000
+	haytopumpkin: 10000
+	servername: MobsGener
+ 
+on left click on emerald block or diamond block or gold block or iron block or coal block or melon or pumpkin or hay block or white glazed terracotta or light blue glazed terracotta or yellow glazed terracotta or lime glazed terracotta or purple glazed terracotta or blue glazed terracotta or red glazed terracotta or copper block or exposed copper or weathered copper or cut copper or exposed cut copper:
+	if player has enough space for 1 shulker box:
+		if player is not sneaking:
+			if event-block is emerald block:
+				if {gens::%player's uuid%::emerald::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::emerald::*}
+					set event-block to air
+					give player 1 emerald block named "&6&lEmerald Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is diamond block:
+				if {gens::%player's uuid%::diamond::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::diamond::*}
+					set event-block to air
+					give player 1 diamond block named "&6&lDiamond Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is gold block:
+				if {gens::%player's uuid%::gold::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::gold::*}
+					set event-block to air
+					give player 1 gold block named "&6&lGold Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is iron block:
+				if {gens::%player's uuid%::iron::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::iron::*}
+					set event-block to air
+					give player 1 iron block named "&6&lIron Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is coal block:
+				if {gens::%player's uuid%::coal::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::coal::*}
+					set event-block to air
+					give player 1 coal block named "&6&lCoal Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is pumpkin:
+				if {gens::%player's uuid%::pumpkin::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::pumpkin::*}
+					set event-block to air
+					give player 1 pumpkin named "&6&lPumpkin Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is hay block:
+				if {gens::%player's uuid%::wheat::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::wheat::*}
+					set event-block to air
+					give player 1 hay block named "&6&lWheat Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is melon:
+				if {gens::%player's uuid%::melon::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::melon::*}
+					set event-block to air
+					give player 1 melon named "&6&lMelon Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is white glazed terracotta:
+				if {gens::%player's uuid%::white::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::white::*}
+					set event-block to air
+					give player 1 white glazed terracotta named "&6&lWhite Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is light blue glazed terracotta:
+				if {gens::%player's uuid%::lb::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::lb::*}
+					set event-block to air
+					give player 1 light blue glazed terracotta named "&6&lLight Blue Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is yellow glazed terracotta:
+				if {gens::%player's uuid%::yellow::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::yellow::*}
+					set event-block to air
+					give player 1 yellow glazed terracotta named "&6&lYellow Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is lime glazed terracotta:
+				if {gens::%player's uuid%::lime::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::lime::*}
+					set event-block to air
+					give player 1 lime glazed terracotta named "&6&lGreen Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is purple glazed terracotta:
+				if {gens::%player's uuid%::purple::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::purple::*}
+					set event-block to air
+					give player 1 purple glazed terracotta named "&6&lPurple Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is blue glazed terracotta:
+				if {gens::%player's uuid%::blue::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::blue::*}
+					set event-block to air
+					give player 1 blue glazed terracotta named "&6&lBlue Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is red glazed terracotta:
+				if {gens::%player's uuid%::red::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::red::*}
+					set event-block to air
+					give player 1 red glazed terracotta named "&6&lRed Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is copper block:
+				if {gens::%player's uuid%::cb::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::cb::*}
+					set event-block to air
+					give player 1 copper block named "&6&lStrider Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is exposed copper:
+				if {gens::%player's uuid%::ec::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::ec::*}
+					set event-block to air
+					give player 1 exposed copper named "&6&lFox Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is weathered copper:
+				if {gens::%player's uuid%::wc::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::wc::*}
+					set event-block to air
+					give player 1 weathered copper named "&6&lWolf Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is oxidized copper:
+				if {gens::%player's uuid%::oc::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::oc::*}
+					set event-block to air
+					give player 1 weathered copper named "&6&lCreeper Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is cut copper:
+				if {gens::%player's uuid%::cc::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::cc::*}
+					set event-block to air
+					give player 1 cut copper named "&6&lDrowned Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else if event-block is exposed cut copper:
+				if {gens::%player's uuid%::ecc::*} contains location of event-block:
+					play sound "entity.item.pickup" with volume 3 to the player
+					remove 1 from {gc::%player's uuid%}
+					remove location of event-block from {gens::%player's uuid%::ecc::*}
+					set event-block to air
+					give player 1 exposed cut copper named "&6&lIllusioner Gen" with lore "&7(Place To Use)"
+					send action bar "&a&l{@servername} &7» &aYou collected your Gen!" to player
+			else:
+				cancel event
+				play sound "entity.villager.no" with volume 3 to the player
+				send "&6&l{@servername} &7» &eThis is not your generator!"
+
+	else:
+		cancel event
+		send "&6&l{@servername} &7» &aYour inventory is full. remove stuff before picking it up."
+                                                         
+on break of emerald block or diamond block or gold block or iron block or coal block or melon or pumpkin or hay block or white glazed terracotta or light blue glazed terracotta or yellow glazed terracotta or lime glazed terracotta or purple glazed terracotta or blue glazed terracotta or red glazed terracotta or copper block or exposed copper or weathered copper or oxidized copper or cut copper or exposed cut copper:
+	cancel event
+ 

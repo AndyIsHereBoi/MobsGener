@@ -1,0 +1,2 @@
+every 1 seconds:
+	make player "AndyIsHereBoi" run command "/particle minecraft:explosion ~ ~ ~" as op

@@ -1,0 +1,49 @@
+function formatNum(int: object, ab: boolean = false, rev: boolean = false) :: object:
+	if {_rev} = false:
+		set {_data} to "ST,21|QT,18|Q,15|T,12|B,9|M,6|K,3"
+		set {_n} to {_int}
+		loop split {_data} at "|":
+			set {_s::*} to split loop-value at ","
+			{_n} >= 10 ^ {_s::2} parsed as number
+			return "%{_n} / 10 ^ {_s::2} parsed as number%%{_s::1}%"
+		return "%{_n}%"
+	else:
+		set {_v} to ""
+		set {_data} to "Q,15|T,12|B,9|M,6|k,3"
+		loop split {_data} at "|":
+			set {_s::*} to split loop-value at ","
+			set {_d::%{_s::1}%} to {_s::2} parsed as number
+		loop split {_int} at "":
+			if {_d::%loop-value%} is set:
+				add {_d::%loop-value%} to {_n}
+			else:
+				set {_v} to "%{_v}%%loop-value%"
+		return ({_v} parsed as number) * 10^{_n}
+
+every 20 tick:
+	loop all players:
+		toggle loop-player's scoreboard to true
+		set title of loop-player's scoreboard to "&6MobsGener"
+		set line 16 of loop-player's scoreboard to "&b"
+		set line 11 of loop-player's scoreboard to "&b&lYou"
+		set line 10 of loop-player's scoreboard to " " #" &cPing:      &6%loop-player's ping%ms"
+		set line 9 of loop-player's scoreboard to " &cBalance: &6%balance of loop-player%"
+		set line 8 of loop-player's scoreboard to " &cGens:     &6%{gc::%loop-player's uuid%}% &7/ &6%{gencap::%loop-player's uuid%}% "
+		set line 7 of loop-player's scoreboard to " &cTokens:  &6%{tokens::%loop-player's uuid%}%"
+
+		if {%loop-player's uuid%.gentoggle} is true:
+			set {_toggle} to "&aEnabled"
+		else: 
+			set {_toggle} to "&cDisabled"
+		set line 6 of loop-player's scoreboard to " &cGen status: &6 %{_toggle}%"
+
+		if {%loop-player's uuid%.tokentoggle} is true:
+			set {_toggle} to "&aEnabled"
+		else: 
+			set {_toggle} to "&cDisabled"
+
+		set line 5 of loop-player's scoreboard to " &cToken messages: &6 %{_toggle}%"
+		set line 4 of loop-player's scoreboard to "&b&lInformation"
+		set line 3 of loop-player's scoreboard to " &cTPS:    &6%rounded 1st element of tps%"
+		set line 2 of loop-player's scoreboard to " &cOnline: &6%number of all players%&7 players online"
+		set line 1 of loop-player's scoreboard to " &cIP: &l&6Mobsgener"

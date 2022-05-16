@@ -1,0 +1,7 @@
+# Made by AlexDiggerMan
+# Use %player% for the player name
+on join:
+	set join message to "&2[&1+&2] %player%"
+
+on quit:
+	set leave message to "&2[&4-&2] %player%"

@@ -1,0 +1,124 @@
+options:
+	cctoecc: 700000000
+	octocc: 650000000
+	wctooc: 600000000
+	ectowc: 550000000
+	cbtoec: 500000000
+	redtocb: 450000000
+	bluetored: 400000000
+	purpletoblue: 350000000
+	greentopurple: 300000000
+	yellowtogreen: 270000000
+	lbtoyellow: 250000000
+	whitetolb: 210000000
+	emeraldtowhite: 160000000
+	diamondtoemerald: 110000000
+	goldtodiamond: 8000000
+	irontogold: 500000
+	coaltoiron: 300000
+	melontocoal: 100000
+	pumpkintomelon: 50000
+	haytopumpkin: 10000
+	servername: MobsGener
+ 
+command /genget <text> [<player>]:
+	permission: skript.gens.genget
+	permission message: &cNo permission!
+	trigger:
+		if arg-2 is set:
+			set {_p} to arg-2
+		else:
+			set {_p} to player
+		if arg-1 is "white":
+			give {_p} 1 white glazed terracotta named "&6&lWhite Gen" with lore "&7(Place To Use)"
+		if arg-1 is "lightblue":
+			give {_p} 1 light blue glazed terracotta named "&6&lLight Blue Gen" with lore "&7(Place To Use)"
+		if arg-1 is "yellow":
+			give {_p} 1 yellow glazed terracotta named "&6&lYellow Gen" with lore "&7(Place To Use)"
+		if arg-1 is "green":
+			give {_p} 1 lime glazed terracotta named "&6&lGreen Gen" with lore "&7(Place To Use)"
+		if arg-1 is "purple":
+			give {_p} 1 purple glazed terracotta named "&6&lPurple Gen" with lore "&7(Place To Use)"
+		if arg-1 is "blue":
+			give {_p} 1 blue glazed terracotta named "&6&lBlue Gen" with lore "&7(Place To Use)"
+		if arg-1 is "red":
+			give {_p} 1 red glazed terracotta named "&6&lRed Gen" with lore "&7(Place To Use)"
+		if arg-1 is "emerald":
+			give {_p} 1 emerald block named "&6&lEmerald Gen" with lore "&7(Place To Use)"
+		if arg-1 is "diamond":
+			give {_p} 1 diamond block named "&6&lDiamond Gen" with lore "&7(Place To Use)"
+		if arg-1 is "gold":
+			give {_p} 1 gold block named "&6&lGold Gen" with lore "&7(Place To Use)"
+		if arg-1 is "iron":
+			give {_p} 1 iron block named "&6&lIron Gen" with lore "&7(Place To Use)"
+		if arg-1 is "coal":
+			give {_p} 1 coal block named "&6&lCoal Gen" with lore "&7(Place To Use)"
+		if arg-1 is "melon":
+			give {_p} 1 melon named "&6&lMelon Gen" with lore "&7(Place To Use)"
+		if arg-1 is "pumpkin":
+			give {_p} 1 pumpkin named "&6&lPumpkin Gen" with lore "&7(Place To Use)"
+		if arg-1 is "wheat":
+			give {_p} 1 hay block named "&6&lWheat Gen" with lore "&7(Place To Use)"
+		if arg-1 is "cb":
+			give {_p} 1 copper block named "&6&lStrider Gen" with lore "&7(Place To Use)"
+		if arg-1 is "ec":
+			give {_p} 1 exposed copper named "&6&lFox Gen" with lore "&7(Place To Use)"
+		if arg-1 is "wc":
+			give {_p} 1 weathered copper named "&6&lWolf Gen" with lore "&7(Place To Use)"
+		if arg-1 is "oc":
+			give {_p} 1 oxidized copper named "&6&lCreeper Gen" with lore "&7(Place To Use)"
+		if arg-1 is "cc":
+			give {_p} 1 cut copper named "&6&lDrowned Gen" with lore "&7(Place To Use)"
+		if arg-1 is "ecc":
+			give {_p} 1 exposed cut copper named "&6&lIllusioner Gen" with lore "&7(Place To Use)"
+ 
+ 
+ 
+on join:
+	if {gencap::%player's uuid%} is not set:
+		set {gencap::%player's uuid%} to 50	
+	if {gc::%player's uuid%} is not set:
+		set {gc::%player's uuid%} to 0
+
+
+command /resetgen [<offline player>]:
+	permission: skript.gens.resetgen
+	trigger:
+		if arg-1 is set:
+			set {_u} to arg-1's uuid
+			send "&3&lAll gens for &b&l%arg-1% &3&lwere reset! &7(A relog for this player is recommended)" to player
+		else:
+			set {_u} to player's uuid
+			send "&3&lAll gens for &b&l%player% &3&lwere reset! &7(A relog for this player is recommended)" to player
+		loop {gens::%{_u}%::*}:
+			loop {gens::%{_u}%::%loop-value%::*}:
+				set block at location of loop-value-2 to air
+				delete {gens::%{_u}%::%loop-value-1%::%loop-value-2%}
+		delete {gens::%{_u}%::*}
+		set {gc::%{_u}%} to 0
+ 
+ 
+
+ 
+ 
+Command /setgenslots [<offline player>] [<integer>]:
+  permission: op
+  permission message: &cNo!
+  trigger:
+    if arg-1 is not set:
+      send "&aGenPlots &8-  &7You need to specify a player." to player
+    else:
+      if arg-2 is not set:
+        send "&aGenPlots &8-  &7You need to specify a number" to player
+      else:
+        set {gencap::%arg-1's uuid%} to arg-2
+        send "&a{@servername} &7| Your gen cap has been set to &6%arg-2%&7!" to arg-1
+        send "&a{@servername} &7| You set &7%arg-1%&7's &7gen cap to &6%arg-2%&7!" to player
+
+command /addgenslots <player> <integer>:
+	permission: op
+	permission message: &cYou do not have the correct permission to execute this command!
+	trigger:
+		add arg-2 to {gencap::%arg-1's uuid%}
+		send "&b&lGens &eSuccessfully added &a%arg-2% &eto &a%arg-1%&e's gen cap&e!" to player
+		send "&aGenerator &7| Your gen cap has been increased by &6%arg-2%&7 to a total of &6%{gencap::%arg-1's uuid%}%&7!" to arg-1

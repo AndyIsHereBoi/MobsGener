@@ -1,0 +1,319 @@
+options:	
+    servername: &4MobsGener&d
+    range: 80
+
+function killmobs():
+    if {mobcountkill} is not set:
+        set {mobcountkill} to 0
+
+    add 1 to {mobcountkill}
+    if {mobcountkill} = 4:
+        loop all players:
+            set action bar of loop-player to "{@servername}> Clearing mobs and items in 10 seconds."
+
+    if {mobcountkill} > 5:
+        set {mobcountkill} to 0
+        set {killing_togl} to true
+        realkill()
+        set {killing_togl} to false
+        stop
+
+
+every 5 seconds:
+    killmobs()
+    loop all players:
+        set {_player} to loop-player
+        if {%loop-player's uuid%.gentoggle} is true:
+            loop {gens::%loop-player's uuid%::wheat::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Zombie}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 zombie above loop-value-2
+                        set name of last spawned zombie to "%{_player}% Zombie"
+                    else:
+                        add 2 to {bp.%loop-player%.Zombie}
+
+            loop {gens::%loop-player's uuid%::pumpkin::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Skeleton}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 skeleton above loop-value-2
+                        set name of last spawned skeleton to "%{_player}% Skeleton"
+                    else:
+                        add 2 to {bp.%loop-player%.Skeleton}
+
+
+            loop {gens::%loop-player's uuid%::melon::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Stray}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 stray above loop-value-2
+                        set name of last spawned stray to "%{_player}% Stray"
+                    else:
+                        add 2 to {bp.%loop-player%.Stray}
+
+
+            loop {gens::%loop-player's uuid%::coal::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Silverfish}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 silverfish above loop-value-2
+                        set name of last spawned silverfish to "%{_player}% Silverfish"
+                    else:
+                        add 2 to {bp.%loop-player%.Silverfish}
+
+            loop {gens::%loop-player's uuid%::iron::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Sheep}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 sheep above loop-value-2
+                        set name of last spawned sheep to "%{_player}% Sheep"
+                    else:
+                        add 2 to {bp.%loop-player%.Sheep}
+
+            loop {gens::%loop-player's uuid%::gold::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.WitherSkeleton}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 wither skeleton above loop-value-2
+                        set name of last spawned wither skeleton to "%{_player}% WitherSkeleton"
+                    else:
+                        add 2 to {bp.%loop-player%.WitherSkeleton}
+
+            loop {gens::%loop-player's uuid%::diamond::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Pig}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 pig above loop-value-2
+                        set name of last spawned pig to "%{_player}% Pig"
+                    else:
+                        add 2 to {bp.%loop-player%.Pig}
+
+            loop {gens::%loop-player's uuid%::emerald::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Witch}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 witch above loop-value-2
+                        set name of last spawned witch to "%{_player}% Witch"
+                    else:
+                        add 2 to {bp.%loop-player%.Witch}
+
+            loop {gens::%loop-player's uuid%::white::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Endermite}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 endermite above loop-value-2
+                        set name of last spawned endermite to "%{_player}% Endermite"
+                    else:
+                        add 2 to {bp.%loop-player%.Endermite}
+
+            loop {gens::%loop-player's uuid%::lb::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Cow}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 cow above loop-value-2
+                        set name of last spawned cow to "%{_player}% Cow"
+                    else:
+                        add 2 to {bp.%loop-player%.Cow}
+
+            loop {gens::%loop-player's uuid%::yellow::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Mooshroom}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 mooshroom above loop-value-2
+                        set name of last spawned mooshroom to "%{_player}% Mooshroom"
+                    else:
+                        add 2 to {bp.%loop-player%.Mooshroom}
+
+            loop {gens::%loop-player's uuid%::lime::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.ZombieVillager}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 zombie villager above loop-value-2
+                        set name of last spawned zombie villager to "%{_player}% ZombieVillager"
+                    else:
+                        add 2 to {bp.%loop-player%.ZombieVillager}
+
+            loop {gens::%loop-player's uuid%::purple::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Husk}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 husk above loop-value-2
+                        set name of last spawned husk to "%{_player}% Husk"
+                    else:
+                        add 2 to {bp.%loop-player%.Husk}
+
+            loop {gens::%loop-player's uuid%::blue::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Pillager}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 pillager above loop-value-2
+                        set name of last spawned pillager to "%{_player}% Pillager"
+                    else:
+                        add 2 to {bp.%loop-player%.Pillager}
+
+            loop {gens::%loop-player's uuid%::red::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.SnowGolem}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 snow golem above loop-value-2
+                        set name of last spawned snow golem to "%{_player}% SnowGolem"
+                    else:
+                        add 2 to {bp.%loop-player%.SnowGolem}
+                        
+            loop {gens::%loop-player's uuid%::cb::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.Strider}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 Strider above loop-value-2
+                        set name of last spawned Strider to "%{_player}% Strider"
+                    else:
+                        add 2 to {bp.%loop-player%.Strider}
+                        
+            loop {gens::%loop-player's uuid%::ec::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.foxes}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 fox above loop-value-2
+                        set name of last spawned fox to "%{_player}% Fox"
+                    else:
+                        add 2 to {bp.%loop-player%.foxes}
+                        
+            loop {gens::%loop-player's uuid%::wc::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.wolves}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 wolf above loop-value-2
+                        set name of last spawned wolf to "%{_player}% Wolf"
+                    else:
+                        add 2 to {bp.%loop-player%.wolves}
+                        
+            loop {gens::%loop-player's uuid%::oc::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.creeper}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 creeper above loop-value-2
+                        set name of last spawned creeper to "%{_player}% Creeper"
+                    else:
+                        add 2 to {bp.%loop-player%.creeper}
+                        
+            loop {gens::%loop-player's uuid%::cc::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.drowned}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 drowned above loop-value-2
+                        set name of last spawned drowned to "%{_player}% Drowned"
+                    else:
+                        add 2 to {bp.%loop-player%.drowned}
+                        
+            loop {gens::%loop-player's uuid%::ecc::*}:
+                if distance between loop-player and loop-value-2 >= {@range}:
+                    add 2 to {bp.%loop-player%.illusioner}
+                else:
+                    if loop-player's world = loop-value-2's world:
+                        spawn 1 illusioner above loop-value-2
+                        set name of last spawned illusioner to "%{_player}% Illusioner"
+                    else:
+                        add 2 to {bp.%loop-player%.illusioner}
+
+            if {%loop-player's uuid%.gentoggle} is not set:
+                set {%loop-player's uuid%.gentoggle} to false
+
+
+
+command /togglegen:
+    trigger:
+        if {%player's uuid%.gentoggle} is true:
+            set {%player's uuid%.gentoggle} to false
+            send "&a&lMobsGener &8- &7Your gens &cwill now not spawn."
+        else if {%player's uuid%.gentoggle} is false:
+            set {%player's uuid%.gentoggle} to true
+            send "&a&lMobsGener &8- &7Your gens &awill now spawn."
+        else if {%player's uuid%.gentoggle} is not set:
+            set {%player's uuid%.gentoggle} to false
+            send "&a&lMobsGener &8- &7Your gens &cwill now not spawn."
+
+
+function realkill():
+	set {_arrows} to size of all arrows in all worlds
+	set {_zombies} to size of all zombies
+	set {_skeletons} to size of all skeletons
+	set {_witch} to size of all witches
+	set {_endermite} to size of all endermites
+	set {_sheep} to size of all sheeps
+	set {_pigs} to size of all pigs
+	set {_cows} to size of all cows
+	set {_mooshrooms} to size of all mooshrooms
+	set {_strays} to size of all strays
+	set {_witherskeletons} to size of all wither skeletons
+	set {_item} to size of all dropped items
+	set {_silverfish} to size of all silverfishes
+	set {_cow} to size of all cows
+	set {_mooshrooms} to size of all mooshrooms
+	set {_zombievillager} to size of all zombie villagers
+	set {_husk} to size of all husks
+	set {_pillager} to size of all pillagers
+	set {_golem} to size of all snow golems
+	set {_strider} to size of all striders
+	set {_foxes} to size of all foxes
+	set {_wolves} to size of all wolves
+	set {_drowned} to size of all drowneds
+	set {_creeper} to size of all creepers
+	set {_illusioner} to size of all illusioners
+	
+	kill all arrows
+	kill all zombies
+	kill all skeletons
+	kill all witches
+	kill all endermites
+	kill all sheeps
+	kill all pigs
+	kill all cows
+	kill all mooshrooms
+	kill all strays
+	kill all wither skeletons
+	kill all dropped items
+	kill all silverfishes
+	kill all cows
+	kill all mooshrooms
+	kill all zombie villagers
+	kill all husks
+	kill all pillagers
+	kill all snow golems
+	kill all striders
+	kill all foxes
+	kill all wolves
+	kill all creepers
+	kill all illusioners
+	set {_total} to {_arrows} + {_zombies} + {_skeletons} + {_witch} + {_item} + {_witherskeletons} + {_sheep} + {_cows} + {_strays} + {_mooshrooms} + {_pigs} + {_sheep} + {_silverfish} + {_cow} + {_mooshrooms} + {_zombievillager} + {_husk} + {_pillager} + {_golem} + {_strider} + {_foxes} + {_wolves} + {_drowned} + {_creeper} + {_illusioner}
+	loop all players:
+		set action bar of loop-player to "&4{@servername}&d > Killed %{_total}% mobs, items, and arrows."
+	execute console command "/minecraft:kill @e[type=zoglin]"
+	execute console command "/minecraft:kill @e[type=chicken]"
+	execute console command "/minecraft:kill @e[type=boat]"
+	execute console command "/minecraft:kill @e[type=snowball]"
+	execute console command "/minecraft:kill @e[type=ender_pearl]"
+	execute console command "/minecraft:kill @e[type=snow_golem]"
+	execute console command "/minecraft:kill @e[type=iron_golem]"
+	execute console command "/minecraft:kill @e[type=drowned]"
+	

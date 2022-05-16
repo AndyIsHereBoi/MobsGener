@@ -1,0 +1,70 @@
+
+	
+	
+command /resetmine1:
+	permission: *
+	trigger:
+		reset1()
+
+command /resetmine2:
+	permission: *
+	trigger:
+		reset2()
+
+command /resetmine3:
+	permission: *
+	trigger:
+		reset3()
+
+command /resetmine4:
+	permission: *
+	trigger:
+		reset4()
+		
+
+command /setmine1:
+    permission: *
+    trigger:
+        set {mine1} to player's location
+
+command /setmine2:
+    permission: *
+    trigger:
+        set {mine2} to player's location
+
+command /setmine3:
+    permission: *
+    trigger:
+        set {mine3} to player's location
+
+command /setmine4:
+    permission: *
+    trigger:
+        set {mine4} to player's location
+		
+function reset1():
+	execute console command "//world spawn"
+	execute console command "//pos1 150,62,-277"
+	execute console command "//pos2 224,12,-351"
+	execute console command "//set 30%%coal_ore,30%%emerald_ore,30%%gold_ore,5%%ancient_debris"
+
+
+function reset2():
+	execute console command "//world spawn"
+	execute console command "//pos1 425,25,-336"
+	execute console command "//pos2 352,74,-263"
+	execute console command "//set 30%%emerald_ore,30%%gold_ore,5%%ancient_debris"
+
+
+function reset3():
+	execute console command "//world spawn"
+	execute console command "//pos1 543,24,-339"
+	execute console command "//pos2 617,74,-265"
+	execute console command "//set 30%%emerald_ore,5%%ancient_debris"
+
+
+function reset4():
+	execute console command "//world spawn"
+	execute console command "//pos1 799,74,-267"
+	execute console command "//pos2 725,24,-341"
+	execute console command "//set ancient_debris"

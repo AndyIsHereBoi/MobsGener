@@ -1,0 +1,308 @@
+on item damage:
+  cancel event
+Options:
+    ToolName: &eToken Miner &3| &fBlocks Broken: &3: &b%{PickaxeCounter::%player%}%&3
+    GenVoucherCost: 150000
+    upgradeCost: 200
+    upgradeCostFortune: 1000
+
+on enchant:
+  enchant item is golden pickaxe
+  cancel event 
+
+command /resetmytokens [<text>]:
+    trigger: 
+        if arg-1 is "":
+            send "run &a/resetmytokens confirm&r to reset your tokens."
+        if arg-1 is "confirm":
+            send "Resetting your tokens..."
+            set {tokens::%player's uuid%} to 0
+            send "Your new token balance is %{tokens::%player's uuid%}%."
+
+
+command /tokenpay <player> <number>:
+    trigger:
+        if arg-2 > 50:
+            if {tokens::%player's uuid%} > arg-2:
+                remove arg-2 from {tokens::%player's uuid%}
+                send "Sending tokens to %arg-1%..." to player
+                add arg-2 to {tokens::%arg-1's uuid%}
+                send "%player% sent you %arg-2% tokens." to arg-1
+            else:
+                send "&cYou do not have enough tokens to complete that transaction." to player
+        else:  
+            send "&cMust send more then 50 tokens per transaction."
+
+command /checktokenuuid <text>:
+    trigger:
+        send {tokens::%arg-1%} to player
+
+command /tokenbal <offline player>:
+    trigger:
+        send "%arg-1% has &a%{tokens::%arg-1's uuid%}%&r tokens."
+
+command /tokeneco <text> <player> <number>:
+    permission: op
+    trigger:
+        if arg-1 is "add":
+            add arg-3 to {tokens::%arg-2's uuid%}
+            send "added %arg-3% tokens to %arg-2%." 
+        else if arg-1 is "remove":
+            remove arg-3 from {tokens::%arg-2's uuid%}
+            send "removed %arg-3% tokens from %arg-2%." 
+        else if arg-1 is "set":
+            set {tokens::%arg-2's uuid%} to arg-3
+            send "set %arg-2%'s tokens to %arg-3%"
+        else:
+            send "specify add, remove, or set for the first argument."
+
+
+
+    
+on block break:
+	if player is holding a golden pickaxe:
+		if event-block is gold ore or emerald ore or coal ore or ancient debris:
+			add 1 to {PickaxeCounter::%player%}
+			set name of tool of player to "{@ToolName}"
+ 
+
+#command /pickaxe:
+#    trigger:
+#        give player unbreakable golden pickaxe named "&eToken Miner "
+
+
+command /token:
+    aliases: /tokens
+    trigger:
+        message "&7the ammount of tokens u currently have is &a%{tokens::%player's uuid%}%"
+ 
+command /fortunetest:
+    permission: sk.test.fortune 
+    trigger:
+        enchant player's tool with "fortune 50" parsed as enchantment type
+
+on break of gold ore:
+    if "%region at event-block%" contains "mine2_inside":
+        if {no_coal_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no coal mine."
+            stop
+    else if "%region at event-block%" contains "mine3_inside":
+        if {no_gold_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no gold mine."
+            stop
+    else if "%region at event-block%" contains "mine4_inside":
+        if {no_emerald_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no emerald mine."
+            stop
+    clear drops
+    cancel drops
+    if player's held item is golden pickaxe:
+        if player's held item's name contains "&eToken":
+            set {_baseammount} to 0.5
+            set {_pickaxe} to player's held item
+            set {_fortune} to level of fortune of {_pickaxe}
+            add 1 to {_fortune} # level is always 1 by default
+            set {_recieve} to {_fortune} * {_baseammount}
+
+            add {_recieve} to {tokens::%player's uuid%}
+            if {%player's uuid%.tokentoggle} is true:
+                message "&7 You Gained +%{_recieve}% tokens"
+            
+on break of ancient debris:
+    if "%region at event-block%" contains "mine2_inside":
+        if {no_coal_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no coal mine."
+            stop
+    else if "%region at event-block%" contains "mine3_inside":
+        if {no_gold_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no gold mine."
+            stop
+    else if "%region at event-block%" contains "mine4_inside":
+        if {no_emerald_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no emerald mine."
+            stop
+    clear drops
+    cancel drops
+    if player's held item is golden pickaxe:
+        if player's held item's name contains "&eToken":
+            set {_baseammount} to 5
+            set {_pickaxe} to player's held item
+            set {_fortune} to level of fortune of {_pickaxe}
+            add 1 to {_fortune} # level is always 1 by default
+            set {_recieve} to {_fortune} * {_baseammount}
+
+            add {_recieve} to {tokens::%player's uuid%}
+            if {%player's uuid%.tokentoggle} is true:
+                message "&7 You Gained +%{_recieve}% tokens"
+
+on break of emerald ore:
+    if "%region at event-block%" contains "mine2_inside":
+        if {no_coal_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no coal mine."
+            stop
+    else if "%region at event-block%" contains "mine3_inside":
+        if {no_gold_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no gold mine."
+            stop
+    else if "%region at event-block%" contains "mine4_inside":
+        if {no_emerald_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no emerald mine."
+            stop
+    clear drops
+    cancel drops
+    if player's held item is golden pickaxe:
+        if player's held item's name contains "&eToken":
+            set {_baseammount} to 1
+            set {_pickaxe} to player's held item
+            set {_fortune} to level of fortune of {_pickaxe}
+            add 1 to {_fortune} # level is always 1 by default
+            set {_recieve} to {_fortune} * {_baseammount}
+
+            add {_recieve} to {tokens::%player's uuid%}
+            if {%player's uuid%.tokentoggle} is true:
+                message "&7 You Gained +%{_recieve}% tokens"
+
+on break of coal ore:
+    if "%region at event-block%" contains "mine2_inside":
+        if {no_coal_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no coal mine."
+            stop
+    else if "%region at event-block%" contains "mine3_inside":
+        if {no_gold_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no gold mine."
+            stop
+    else if "%region at event-block%" contains "mine4_inside":
+        if {no_emerald_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no emerald mine."
+            stop
+    clear drops
+    cancel drops
+    if player's held item is golden pickaxe:
+        if player's held item's name contains "&eToken":
+            set {_baseammount} to 0.25
+            set {_pickaxe} to player's held item
+            set {_fortune} to level of fortune of {_pickaxe}
+            add 1 to {_fortune} # level is always 1 by default
+            set {_recieve} to {_fortune} * {_baseammount}
+
+            add {_recieve} to {tokens::%player's uuid%}
+            if {%player's uuid%.tokentoggle} is true:
+                message "&7 You Gained +%{_recieve}% tokens"
+
+
+#on right click:
+#    if player's held item is golden pickaxe:
+#        if player's held item's name contains "&eToken":
+#            open virtual hopper inventory named "    &4&kI&a&kI&b&kI&r&d&lEnchant ' o ' matic&4&kI&a&kI&b&kI" to player
+#            format slot 0  of player with gray stained glass pane named "&6" to close 
+#            set {_pickaxe} to player's held item
+#            set {_efficiency} to level of efficiency of {_pickaxe}
+#            add 1 to {_efficiency}
+#            set {_thing} to {_efficiency} * {@upgradeCost}
+#            format slot 1  of player with golden pickaxe named "&6Upgrade Efficency" with lore "Cost: &a%{_thing}%" to close then run [make player run command "/eff" as op]
+#            format slot 2  of player with gray stained glass pane named "&6" to close 
+#            set {_pickaxe} to player's held item
+#            set {_fortune} to level of fortune of {_pickaxe}
+#            add 1 to {_fortune}
+#            set {_thing} to {_fortune} * {@upgradeCostFortune}
+#            format slot 3  of player with golden pickaxe named "&6Upgrade Fortune" with lore "Cost: &a%{_thing}%" to close then run [make player run command "/fortune" as op]
+#            format slot 4  of player with gray stained glass pane named "&6" to close 
+
+
+command /eff:
+    permission: op
+    trigger:
+        if player's held item is golden pickaxe:
+            if player's held item's name contains "&eToken":
+                set {_pickaxe} to player's held item
+                set {_efficiency} to level of efficiency of {_pickaxe}
+                add 1 to {_efficiency}
+                set {_needed} to {_efficiency} * {@upgradeCost}
+                if {tokens::%player's uuid%} >= {_needed}:
+                    remove {_needed} from {tokens::%player's uuid%}
+                    send "took %{_needed}%" to player
+                    enchant player's tool with "efficiency %{_efficiency}%" parsed as enchantment type
+                else:
+                    send "you need more token" to player
+
+
+command /fortune:
+    permission: op
+    trigger:
+        if player's held item is golden pickaxe:
+            if player's held item's name contains "&eToken":
+                set {_pickaxe} to player's held item
+                set {_fortune} to level of fortune of {_pickaxe}
+                if {_fortune} is not 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14 or 15:
+                    set {_fortune} to 0
+                send "%{_fortune}%" to console
+                if {_fortune} < 15:
+                    add 1 to {_fortune}
+                    set {_needed} to {_fortune} * {@upgradeCostFortune}
+                    if {tokens::%player's uuid%} >= {_needed}:
+                        remove {_needed} from {tokens::%player's uuid%}
+                        send "took %{_needed}%" to player
+                        enchant player's tool with "fortune %{_fortune}%" parsed as enchantment type
+                    else:
+                        send "you need more token" to player
+                else if {_fortune} >= 15:
+                    send "&cYour fortune level is max!"
+                else:
+                    send "else"
+
+
+
+every 5 seconds:
+    loop all players:
+        if {%loop-player's uuid%.gentoggle} is not set:
+            set {%loop-player's uuid%.gentoggle} to true
+
+
+command /toggle <text>:
+    trigger:
+        if arg-1 is "gens" or "gen":
+            if {%player's uuid%.gentoggle} is true:
+                set {%player's uuid%.gentoggle} to false
+                send "&a&lMobsGener &8- &7Your gens &cwill now not spawn."
+            else if {%player's uuid%.gentoggle} is false:
+                set {%player's uuid%.gentoggle} to true
+                send "&a&lMobsGener &8- &7Your gens &awill now spawn."
+            else if {%player's uuid%.gentoggle} is not set:
+                set {%player's uuid%.gentoggle} to false
+                send "&a&lMobsGener &8- &7Your gens &cwill now not spawn."
+
+        else if arg-1 is "token" or "tokenmessage" or "tokenmsg" or "tkn" or "tknmsg" or "tknsmsg" or "tokenmsgs" or "tokens" or "tokenmessages" or "tkns" or "tknmsgs" or "tknsmsgs":
+            if {%player's uuid%.tokentoggle} is true:
+                set {%player's uuid%.tokentoggle} to false
+                send "&a&lMobsGener &8- &cYou will no longer recieve messages about gaining tokens."
+            else if {%player's uuid%.tokentoggle} is false:
+                set {%player's uuid%.tokentoggle} to true
+                send "&a&lMobsGener &8- &aYou will now recieve messages about gaining tokens."
+            else if {%player's uuid%.tokentoggle} is not set:
+                set {%player's uuid%.tokentoggle} to false
+                send "&a&lMobsGener &8- &cYou will no longer recieve messages about gaining tokens."    
+
+command /enchanteff <number>:
+    permission: *
+    permission message: "no"
+    trigger:
+        enchant player's tool with "efficiency %{arg-1}%" parsed as enchantment type
+
+command /enchantfortune <number>:
+    permission: *
+    permission message: "no"
+    trigger:
+        enchant player's tool with "fortune %{arg-1}%" parsed as enchantment type
+

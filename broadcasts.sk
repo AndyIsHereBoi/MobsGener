@@ -1,0 +1,5 @@
+every 2 minutes:
+	send formatted "&4MobsGener&6 >&2 Join our Discord! <link:https://discord.gg/6HbSETS6kP>&6>>&cClick Here&6<<!" to all players
+	send "&4MobsGener&6 >&2 Support the server so we stay not pay to win at &e/buy&2!" to all players
+	broadcast "&4Old discord was deleted. &aNew one here: &7&kl&7&kl&7&kl   &bhttps://discord.gg/6HbSETS6kP   &7&kl&7&kl&7&kl"
+	

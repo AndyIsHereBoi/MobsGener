@@ -1,0 +1,122 @@
+on craft of wheat:
+  cancel event
+
+on craft of hay block:
+  cancel event
+
+on craft of pumpkin:
+  cancel event
+
+on craft of melon:
+  cancel event
+
+on craft of coal block:
+  cancel event
+
+on craft of iron block:
+  cancel event
+
+on craft of gold block:
+  cancel event
+
+on craft of diamond block:
+  cancel event
+
+on craft of emerald block:
+  cancel event
+
+on craft of white glazed terracotta:
+  cancel event
+
+on craft of light blue glazed terracotta:
+  cancel event
+
+on craft of yellow glazed terracotta:
+  cancel event
+
+on craft of lime glazed terracotta:
+  cancel event
+
+on craft of purple glazed terracotta:
+  cancel event
+
+on craft of blue glazed terracotta:
+  cancel event
+
+on craft of red glazed terracotta:
+  cancel event
+  
+on craft of lime dye:
+  cancel event
+  
+on craft of copper block:
+	cancel event
+	
+on right click holding shears:
+    if event-block is a pumpkin:
+        cancel event
+  
+on smelting:
+  if ore slot of event-block is white terracotta: 
+    cancel event
+  else if ore slot of event-block is light blue terracotta: 
+    cancel event
+  else if ore slot of event-block is yellow terracotta: 
+    cancel event
+  else if ore slot of event-block is green terracotta: 
+    cancel event
+  else if ore slot of event-block is purple terracotta: 
+    cancel event
+  else if ore slot of event-block is blue terracotta: 
+    cancel event
+  else if ore slot of event-block is red terracotta: 
+    cancel event
+
+on anvil prepare:
+    if slot 0 of event-inventory is a golden pickaxe:
+        if slot 1 of event-inventory is an enchanted book:
+            set repair cost of event-inventory to 999999
+			
+on right click:
+	if event-block is chest or trapped chest or ender chest:
+		if player is holding golden pickaxe:
+			cancel event
+			
+on craft of soul campfire or campfire or flint and steel:
+	cancel event
+	
+	
+on place of player head or magma block or soul campfire or campfire:
+	cancel event
+	send "&cno"
+	
+on consume of chorus fruit:
+	cancel event
+	send "nahhhhhh"
+
+on rightclick:
+    if player's tool is an enderpearl:
+        if player's world is "spawn":
+            cancel event
+            send "&cNAHHHHHHHHH"
+		
+on rightclick:
+    if player's tool is an eye of ender:
+        cancel event
+        send "&cNAHHHHHHHHH"
+		
+on explosion prime:
+	cancel event
+	send "&cYou may not light this."
+	
+on explode:
+	cancel event
+	
+on drop:
+    if event-item is golden pickaxe:
+        if event-item's name contains "&eToken":
+            cancel event
+			
+on place of sunflower:
+	cancel event
+   

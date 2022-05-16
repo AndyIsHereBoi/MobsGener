@@ -1,0 +1,54 @@
+on consume:
+    if player's held item is cooked porkchop:
+        if player's held item's name contains "&6Cyanide Pill":
+            remove 1 cooked porkchop named "&6Cyanide Pill" from player
+            kill player
+
+    else if player's held item is beetroot:
+        if player's held item's name contains "&6Anti-Adiction pill":
+            remove 1 beetroot named "&6Anti-Adiction pill" from player
+            send "Your adictions to honey bottles are cured! (do /adiction to get it back)"
+            set {adicted::%player's uuid%} to false
+
+    else if player's held item is honey bottle:
+        cancel event
+        send "Your adictions to honey bottles are cured! It's not possible to get adicted. (do /adiction to get it back)"
+
+
+
+command /cyanide:
+    permission: op 
+    trigger:
+        give player 1 cooked porkchop named "&6Cyanide Pill"
+        send "Cyanide"
+
+command /anti-adiction:
+    permission: op 
+    trigger:
+        give player 1 beetroot named "&6Anti-Adiction pill"
+        send "Cyanide"
+
+command /adiction:
+    trigger:
+        set {adicted::%player's uuid%} to true
+        send "You are now gullable to adictions to honey!"
+
+on drop:
+    if event-entity is netherite scrap:
+        wait 1.6 seconds
+        delete event-entity
+
+on item merge of netherite scrap:
+	cancel event
+
+command /shit:
+    permission: op 
+    trigger:
+        send "Start" 
+        loop 50 times:
+            wait 1 tick
+            drop 1 netherite scrap at player's location
+            add "{PickupDelay:90}" to nbt of last dropped item
+            set {_item} to last dropped item
+            delete {_item}
+

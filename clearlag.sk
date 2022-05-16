@@ -1,0 +1,52 @@
+options:
+	servername: MobsGener
+
+command /clearnow:
+	permission: skript.admin.clearnow
+	trigger:
+		set {_arrows} to size of all arrows in all worlds
+		set {_zombies} to size of all zombies
+		set {_skeletons} to size of all skeletons
+		set {_witch} to size of all witches
+		set {_endermite} to size of all endermites
+		set {_sheep} to size of all sheeps
+		set {_pigs} to size of all pigs
+		set {_cows} to size of all cows
+		set {_mooshrooms} to size of all mooshrooms
+		set {_strays} to size of all strays
+		set {_witherskeletons} to size of all wither skeletons
+		set {_item} to size of all dropped items
+		set {_silverfish} to size of all silverfishes
+		set {_cow} to size of all cows
+		set {_mooshrooms} to size of all mooshrooms
+		set {_zombievillager} to size of all zombie villagers
+		set {_husk} to size of all husks
+		set {_pillager} to size of all pillagers
+		set {_hoglin} to size of all hoglins
+		
+		kill all arrows
+		kill all zombies
+		kill all skeletons
+		kill all witches
+		kill all endermites
+		kill all sheeps
+		kill all pigs
+		kill all cows
+		kill all mooshrooms
+		kill all strays
+		kill all wither skeletons
+		kill all dropped items
+		kill all silverfishes
+		kill all cows
+		kill all mooshrooms
+		kill all zombie villagers
+		kill all husks
+		kill all pillagers
+		kill all hoglins
+		kill all armor stands
+		kill all bottles of enchanting
+		set {_total} to {_arrows} + {_zombies} + {_skeletons} + {_witch} + {_item} + {_witherskeletons} + {_sheep} + {_cows} + {_strays} + {_mooshrooms} + {_pigs} + {_sheep} + {_silverfish} + {_cow} + {_mooshrooms} + {_zombievillager} + {_husk} + {_pillager} + {_hoglin}
+		execute console command "/minecraft:kill @e[type=zoglin]"
+		loop all players:
+			set action bar of loop-player to "&4{@servername}&d > Killed %{_total}% mobs, items, and arrows."
+

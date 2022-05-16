@@ -1,0 +1,135 @@
+Options:
+    no_coal_mine_cost: 150000
+    no_gold_mine_cost: 500000
+    no_emerald_mine_cost: 6000000
+
+
+every 5 seconds:
+	loop all players:
+		if {no_coal_mine_access::%loop-player's uuid%} is not set:
+			set {no_coal_mine_access::%loop-player's uuid%} to false
+
+		else if {no_gold_mine_access::%loop-player's uuid%} is not set:
+			set {no_gold_mine_access::%loop-player's uuid%} to false
+
+		else if {no_emerald_mine_access::%loop-player's uuid%} is not set:
+			set {no_emerald_mine_access::%loop-player's uuid%} to false
+			
+command /mine:
+    trigger:
+        open chest with 2 rows named "&2Select a mine" to player
+        wait a tick 
+        format slot 0  of player with gray stained glass pane named "&6" to close 
+        format slot 1  of player with gray stained glass pane named "&6" to close 
+        format slot 2  of player with lime dye named "&6Default Mine" with lore "&d - All ores" and "&dCost: &aFree" and "&cClick to teleport!" to close then run [make player run command "/warp_mine1" as op]
+        format slot 3  of player with gray stained glass pane named "&6" to close 
+        wait a tick
+
+
+        format slot 5  of player with gray stained glass pane named "&6" to close 
+        format slot 6  of player with gray dye named "mine 5 test (maybe netherite block???)" to close 
+
+
+        # No coal mine 
+        wait a tick
+        if {no_coal_mine_access::%player's uuid%} is true: 
+            format slot 12  of player with lime dye named "&6Anti Coal mine Mine" with lore "&d - No &8coal" and "&dCost: &aPurchased" and "&cClick to teleport!" to close then run [make player run command "/warp_mine2" as op]
+        else:
+            set {_cost} to {@no_coal_mine_cost}
+            format slot 12  of player with gray dye named "&6Anti-coal Mine" with lore "&d - No &8coal" and "Cost:&a %{_cost}%" to close then run [make player run command "/unlock_mine2" as op]
+
+        # No gold mine
+        if {no_gold_mine_access::%player's uuid%} is true: 
+            format slot 4  of player with lime dye named "&6Anti gold mine" with lore "&d - No &8coal &dor &6gold" and "&dCost: &aPurchased" and "&cClick to teleport!" to close then run [make player run command "/warp_mine3" as op]
+        else:
+            set {_cost} to {@no_gold_mine_cost}
+            format slot 4  of player with gray dye named "&6Anti gold mine" with lore "&d - No &8coal &dor &6gold" and "Cost:&a %{_cost}%" to close then run [make player run command "/unlock_mine3" as op]
+
+
+        # No emerald mine
+        wait a tick
+        if {no_emerald_mine_access::%player's uuid%} is true: 
+            format slot 14  of player with lime dye named "&6Anti emerald mine" with lore "&d - No &8coal&d, &6gold &dor &acemerald &d ores" and "&dCost: &aPurchased" and "&cClick to teleport!" to close then run [make player run command "/warp_mine4" as op]
+        else:
+            set {_cost} to {@no_emerald_mine_cost}
+            format slot 14  of player with gray dye named "&6Anti emerald mine" with lore "&d - No &8coal&d, &6gold &dor &acemerald&d ores" and "Cost:&a %{_cost}%" to close then run [make player run command "/unlock_mine4" as op]
+
+
+
+
+
+command /warp_mine1:
+    permission: op
+    trigger:
+        teleport player to {mine1}
+
+
+command /warp_mine2:
+    permission: op
+    trigger:
+        teleport player to {mine2}
+
+command /warp_mine3:
+    permission: op
+    trigger:
+        teleport player to {mine3}
+
+command /warp_mine4:
+    permission: op
+    trigger:
+        teleport player to {mine4}
+
+
+command /unlock_mine2:
+    permission: op
+    trigger:
+        if {tokens::%player's uuid%} >= {@no_coal_mine_cost}:
+            remove {@no_coal_mine_cost} from {tokens::%player's uuid%}
+            set {no_coal_mine_access::%player's uuid%} to true
+            send "&cSuccesfly purchased &aNo coal mine"
+        else:
+            send "&cYou do not have enough tokens to buy this."
+
+
+
+command /unlock_mine3:
+    permission: op
+    trigger:
+        if {no_coal_mine_access::%player's uuid%} is true:
+            if {tokens::%player's uuid%} >= {@no_gold_mine_cost}:
+                remove {@no_gold_mine_cost} from {tokens::%player's uuid%}
+                set {no_gold_mine_access::%player's uuid%} to true
+                send "&cSuccesfly purchased &aNo gold mine"
+            else:
+                send "&cYou do not have enough tokens to buy this."
+        else:
+            send "&cYou must buy the no coal mine first."
+
+
+command /unlock_mine4:
+    permission: op
+    trigger:
+        if {no_gold_mine_access::%player's uuid%} is true:
+            if {tokens::%player's uuid%} >= {@no_emerald_mine_cost}:
+                remove {@no_emerald_mine_cost} from {tokens::%player's uuid%}
+                set {no_emerald_mine_access::%player's uuid%} to true
+                send "&cSuccesfly purchased &aNo emerald mine"
+            else:
+                send "&cYou do not have enough tokens to buy this."
+        else:
+            send "&cYou must buy the no gold mine first."
+
+
+on block break:
+    if "%region at event-block%" contains "mine2_inside":
+        if {no_coal_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no coal mine."
+    else if "%region at event-block%" contains "mine3_inside":
+        if {no_gold_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no gold mine."
+    else if "%region at event-block%" contains "mine4_inside":
+        if {no_emerald_mine_access::%player's uuid%} is not true:
+            cancel event
+            send "&cYou do not have permission to mine here. You must buy the no emerald mine."

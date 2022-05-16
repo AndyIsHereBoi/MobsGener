@@ -1,0 +1,22 @@
+on chat:
+	if message contains "help":
+		wait 1 tick
+		send "&aMobsGener> &6Need help? do &c/help&6 for help."
+	
+	
+	if message contains "earn" or "play" or "start" or "get money":
+		wait 1 tick
+		send "&aMobsGener> &6To play the server, place your generators, and sell your loot in &c/storage&c!"
+		
+		
+	if message contains "sell" or "money" or "drop":
+		wait 1 tick
+		send "&aMobsGener> &6 to sell loot do &c/storage&6!"
+		
+	if message contains "afk":
+		wait 1 tick
+		send "&aMobsGener> &6Want to afk? &cDon't use a machine /warp limbo."
+		
+	if message contains "discord":
+		wait 1 tick
+		send "&aMobsGener> &6https://discord.gg/6HbSETS6kP"

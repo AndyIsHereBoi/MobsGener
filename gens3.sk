@@ -1,0 +1,376 @@
+options:
+	cctoecc: 67500000
+	octocc: 62000000
+	wctooc: 57000000
+	ectowc: 49000000
+	cbtoec: 41000000
+	redtocb: 32000000
+	bluetored: 25000000
+	purpletoblue: 19000000
+	greentopurple: 13500000
+	yellowtogreen: 10000000
+	lbtoyellow: 7500000
+	whitetolb: 4000000
+	emeraldtowhite: 2500000
+	diamondtoemerald: 1750000
+	goldtodiamond: 1000000
+	irontogold: 500000
+	coaltoiron: 300000
+	melontocoal: 100000
+	pumpkintomelon: 50000
+	haytopumpkin: 10000
+	servername: MobsGener
+
+     
+on right click on emerald block or diamond block or gold block or iron block or coal block or melon or pumpkin or hay block or white glazed terracotta or light blue glazed terracotta or yellow glazed terracotta or lime glazed terracotta or purple glazed terracotta or blue glazed terracotta or red glazed terracotta or copper block or exposed copper or weathered copper or oxidized copper or cut copper or exposed cut copper:
+	if player has enough space for 1 shulker box :
+		if player is sneaking:
+			set {_loc} to location of event-block
+			if {gens::%player's uuid%::ecc::*} contains {_loc}:
+				send action bar "&b&l{@servername} &B» &fThis generator is already maxed out!" to player
+			else if {gens::%player's uuid%::diamond::*} contains {_loc}:
+				set {_price} to {@diamondtoemerald}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou do not have enough money." to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::diamond::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget emerald %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::gold::*} contains {_loc}:
+				set {_price} to {@goldtodiamond}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::gold::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget diamond %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::iron::*} contains {_loc}:
+				set {_price} to {@irontogold}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::iron::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget gold %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::coal::*} contains {_loc}:
+				set {_price} to {@coaltoiron}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::coal::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget iron %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::melon::*} contains {_loc}:
+				set {_price} to {@melontocoal}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::melon::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget coal %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::pumpkin::*} contains {_loc}:
+				set {_price} to {@pumpkintomelon}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::pumpkin::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget melon %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::wheat::*} contains {_loc}:
+				set {_price} to {@haytopumpkin}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&lGeneratoar &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::wheat::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget pumpkin %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &eYou ranked up your gen!" to player
+			else if {gens::%player's uuid%::emerald::*} contains {_loc}:
+				set {_price} to {@emeraldtowhite}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::emerald::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget white %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::white::*} contains {_loc}:
+				set {_price} to {@whitetolb}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::white::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget lightblue %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::lb::*} contains {_loc}:
+				set {_price} to {@lbtoyellow}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::lb::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget yellow %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::yellow::*} contains {_loc}:
+				set {_price} to {@yellowtogreen}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::yellow::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget green %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::lime::*} contains {_loc}:
+				set {_price} to {@greentopurple}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::lime::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget purple %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::purple::*} contains {_loc}:
+				set {_price} to {@purpletoblue}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&a&l{@servername} &7» &aYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::purple::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget blue %player%"
+				set event-block to air
+				send action bar "&a&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else if {gens::%player's uuid%::blue::*} contains {_loc}:
+				set {_price} to {@bluetored}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::blue::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget red %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                
+			else if {gens::%player's uuid%::red::*} contains {_loc}:
+				set {_price} to {@redtocb}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::red::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget cb %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                
+			else if {gens::%player's uuid%::cb::*} contains {_loc}:
+				set {_price} to {@cbtoec}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::cb::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget ec %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                               
+			else if {gens::%player's uuid%::ec::*} contains {_loc}:
+				set {_price} to {@ectowc}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::ec::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget wc %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                               
+			else if {gens::%player's uuid%::wc::*} contains {_loc}:
+				set {_price} to {@wctooc}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::wc::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget oc %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                               
+			else if {gens::%player's uuid%::oc::*} contains {_loc}:
+				set {_price} to {@octocc}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::oc::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget cc %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+                               
+			else if {gens::%player's uuid%::cc::*} contains {_loc}:
+				set {_price} to {@cctoecc}
+				if player's balance < {_price}:
+					if player's held item is air:
+						play sound "entity.villager.no" with volume 3 to player
+						send action bar "&6&l{@servername} &7» &eYou need &7$%{_price}% &eto upgrade!" to player
+						stop
+					else:
+						send action bar "&a&l{@servername} &7» &aYou don't have enough money!" to player
+						stop
+				remove {_price} from balance of player
+				remove {_loc} from {gens::%player's uuid%::cc::*}
+				remove 1 from {gc::%player's uuid%}
+				make console execute command "genget ecc %player%"
+				set event-block to air
+				send action bar "&6&l{@servername} &7» &aYou ranked up your gen!" to player
+	
+			else:
+				cancel event
+				send "&6&l{@servername} &7» &aThis is not your generator!"
+	else:
+		cancel event
+		send "&6&l{@servername} &7» &aYour inventory is full. remove stuff before picking it up."
+		

@@ -1,0 +1,75 @@
+# Config
+options:
+	# itemName - how the item name will look like in chat. default: &8[&r{name}&r &7x{amount}&8]&r
+	# {name} is the item name and {amount} is the amount of the item
+	itemName: &8[&r{name}&r &7x{amount}&8]&r
+#------------------
+
+on chat:
+	set {_slotList::hand} to index of player's hotbar slot
+	set {_keywordList::hand::*} to "[hand]", "[item]" and "[i]"
+	set {_slotList::offhand} to 40
+	set {_keywordList::offhand::*} to "[offhand]"
+	set {_slotList::helmet} to 39
+	set {_keywordList::helmet::*} to "[helmet]", "[helm]", "[cap]" and "[head]"
+	set {_slotList::chestplate} to 38
+	set {_keywordList::chestplate::*} to "[chestplate]", "[tunic]" and "[chest]"
+	set {_slotList::leggings} to 37
+	set {_keywordList::leggings::*} to "[leggings]", "[pants]" and "[legs]"
+	set {_slotList::boots} to 36
+	set {_keywordList::boots::*} to "[boots]", "[feet]"
+	loop indices of {_keywordList::*}:
+		loop {_keywordList::%loop-value%::*}:
+			message contains loop-value-2
+			add {_slotList::%loop-value-1%} to {_items::*}
+			add loop-value-2 to {_keywords::*}
+			exit 1 loop
+	if size of {_keywords::*} > 0:
+		cancel event
+		set {_message} to message
+		loop {_keywords::*}:
+			loop indices of {_keywordList::*}:
+				{_keywordList::%loop-value-2%::*} contains loop-value-1
+				loop {_keywordList::%loop-value-2%::*}:
+					loop-value-3 is not loop-value-1
+					replace all loop-value-3 with "" in {_message}
+			set {_messages::*} to {_message} split at "%loop-value%"
+			set {_temp} to {_messages::1}
+			delete {_messages::1}
+			set {_message} to "%{_temp}%%loop-value%%join {_messages::*} with """"%"
+			replace all loop-value with "{CIplaceholder}:{%loop-index%}:{CIplaceholder}" in {_message}
+		set {_messages::*} to {_message} split at "{CIplaceholder}"
+		loop {_messages::*}:
+			set {_messages::%loop-index%} to a new text component of "%loop-value%"
+			"%loop-value%" is ":{1}:", ":{2}:", ":{3}:", ":{4}:", ":{5}:" or ":{6}:"
+			set {_itemIndex} to subtext of "%loop-value%" from characters 3 to 3
+			set {_itemIndexes::%{_itemIndex}%} to loop-index
+		loop {_items::*}:
+			delete {_name}
+			set {_item} to loop-value
+			if {_item} is a number:
+				set {_item} to slot {_item} of player's inventory
+			if {_item} is not set:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+			else if {_item} is not air:
+				set {_name} to name of {_item}
+				if {_name} is not set:
+					set {_name} to a new translate component from {_item}
+				set {_amount} to amount of {_item} in player's inventory
+				set {_itemName} to "{@itemName}"
+				replace "{name}" with "%{_name}%"  in {_itemName}
+				replace "{amount}" with "%{_amount}%" in {_itemName}
+				set {_itemName} to a new text component of "%{_itemName}%"
+				set hover event of {_itemName} to a new hover event showing {_item}
+				set {_messages::%{_itemIndexes::%loop-index%}%} to {_itemName}
+			else:
+				set {_messages::%{_itemIndexes::%loop-index%}%} to a new text component of "%{_keywords::%loop-index%}%"
+		set {_messageFormat::*} to message format split at "[message]"
+		replace "[player]" with player's display name in {_messageFormat::1}
+		if message format contains message:
+			set {_messageFormat::*} to message format split at message
+		set {_temp} to a new text component of "%{_messageFormat::1}%"
+		delete {_messageFormat::1}
+		loop all players:
+			send components {_temp}, {_messages::*} and {_messageFormat::*} to loop-player
+		send components {_temp}, {_messages::*} and {_messageFormat::*} to console

@@ -1,0 +1,103 @@
+#!
+#! All rights reserved 
+#! Created by esteban_cz
+#! 
+#! Version 1.3
+#!
+#------------------------------------------------------------------------------
+#Available variables:
+#            %player% - will be replaced by players name
+#------------------------------------------------------------------------------
+
+Options:
+
+    #if you want the chat automaticly 
+    #cleared on every load of the server
+    #(start, reastart, reload, skript reload)
+    #type /autocc on/off
+    by default: off
+    
+    #here add commands you would like to add
+    #as an aliases (/cc can't be removed or changer)
+    aliases: clearchat, cchat
+    
+    #description of the command
+    desc: Clear chat for all players
+    
+    #permission for /cc (op = only ops can use)
+    perm1: skript.clearchat
+    
+    #permission for /autocc (op = only ops can use)
+    perm2: op
+    
+    #what it should broad cast to players after
+    #clearing the chat
+    line1: &6&m-----------------------------------------
+    line2: &b&lThe chat has been cleared
+    line3: &6&m-----------------------------------------
+    
+    #how long after load should the script wait
+    #before automaticly clearing the chat (in seconds)
+    time: 5
+    
+    #usage of the command /autocc
+    usage: /autocc [<on/off>]
+    
+    #if true on load the script will broadcast
+    #what is written in "aboutscript"
+    author: false
+    aboutscript: &bClearChat by esteban_cz loaded
+    
+#------------------------------------------------------------------------------
+#DO NOT TOUCH UNLESS YOU KNOW WHAT YOU'RE DOING!!
+#------------------------------------------------------------------------------
+
+command /cc:
+    aliases: {@aliases}
+    description: {@desc}
+    permission: {@perm1}
+    trigger:
+        loop 300 times:
+            broadcast " "
+        broadcast "{@line1}"
+        broadcast "{@line2}"
+        broadcast "{@line3}"
+        
+#------------------------------------------------------------------------------
+
+on load:
+    set {_author} to {@author}
+    if {_author} is true:
+        broadcast "{@aboutscript}"
+
+#------------------------------------------------------------------------------
+  
+command /autocc [<text>]:
+    permission: {@perm2}
+    usage: {@usage}
+    trigger:
+        if arg 1 is "on":
+            clear {autocc}
+            set {autocc} to true
+            message "&l&bThe chat will now automaticly clear on server load."
+        if arg 1 is "off":
+            clear {autocc}
+            set {autocc} to false
+            message "&l&bThe chat will no longer automaticly clear on server load."
+        if arg 1 is not set:
+            if {autocc} is true:
+                message "The autocc is turned on"
+            if {autocc} is false:
+                message "The autocc is turned off"
+        
+
+#------------------------------------------------------------------------------
+
+on load:
+    if {autocc} is true:
+        wait 1 second
+        broadcast "&bThe chat will be cleared in {@time} seconds."
+        wait {@time} seconds
+        make console execute "cc"
+        
+#------------------------------------------------------------------------------

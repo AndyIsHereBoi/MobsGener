@@ -1,0 +1,103 @@
+options:
+	cctoecc: 67500000
+	octocc: 62000000
+	wctooc: 57000000
+	ectowc: 49000000
+	cbtoec: 41000000
+	redtocb: 32000000
+	bluetored: 25000000
+	purpletoblue: 19000000
+	greentopurple: 13500000
+	yellowtogreen: 10000000
+	lbtoyellow: 7500000
+	whitetolb: 4000000
+	emeraldtowhite: 2500000
+	diamondtoemerald: 1750000
+	goldtodiamond: 1000000
+	irontogold: 500000
+	coaltoiron: 300000
+	melontocoal: 100000
+	pumpkintomelon: 50000
+	haytopumpkin: 10000
+	servername: MobsGener
+
+command /gens:
+	permission: genlist.open
+	permission message: You dont have permision to open the gen list.
+	aliases: /genlist
+	trigger:
+		create a gui with virtual chest inventory with 4 rows named "&e&lGen List":
+			make gui slot 0 with hay block named "&eZombie Gen" with lore "&7» &fUpgrade: &e&n${@haytopumpkin}" and "&7» &fOutput: &e&n$25":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 1 with pumpkin named "&6Skeleton Gen" with lore "&7» &fUpgrade: &e&n${@pumpkintomelon}" and "&7» &fOutput: &e&n$50":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 2 with melon named "&aStray Gen" with lore "&7» &fUpgrade: &e&n${@melontocoal}" and "&7» &fOutput: &e&n$65":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 3 with coal block named "&8Silverfish Gen" with lore "&7» &fUpgrade: &e&n${@coaltoiron}" and "&7» &fOutput: &e&n$80":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 4 with iron block named "&fSheep Gen" with lore "&7» &fUpgrade: &e&n${@irontogold}" and "&7» &fOutput: &e&n$100":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 5 with gold block named "&6Wither Skeleton Gen" with lore "&7» &fUpgrade: &e&n${@goldtodiamond}" and "&7» &fOutput: &e&n$120":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 6 with diamond block named "&bPig Gen" with lore "&7» &fUpgrade: &e&n${@diamondtoemerald}" and "&7» &fOutput: &e&n$130":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 7 with emerald block named "&aWitch Gen" with lore "&7» &fUpgrade: &e&n${@emeraldtowhite}" and "&7» &fOutput: &e&n$150":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 8 with white glazed terracotta named "&fEndermite Gen" with lore "&7» &fUpgrade: &e&n${@whitetolb}" and "&7» &fOutput: &e&n$175":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 9 with light blue glazed terracotta named "&bCow &fGen" with lore "&7» &fUpgrade: &e&n${@lbtoyellow}" and "&7» &fOutput: &e&n$185":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 10 with yellow glazed terracotta named "&eMooshroom &fGen" with lore "&7» &fUpgrade: &e&n${@yellowtogreen}" and "&7» &fOutput: &e&n$195":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 11 with lime glazed terracotta named "&aZombievillager &fGen" with lore "&7» &fUpgrade: &e&n${@greentopurple}" and "&7» &fOutput: &e&n$208":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 12 with purple glazed terracotta named "&5Husk &fGen" with lore "&7» &fUpgrade: &e&n${@purpletoblue}" and "&7» &fOutput: &e&n$214":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 13 with blue glazed terracotta named "&9Pillager &fGen" with lore "&7» &fUpgrade: &e&n${@bluetored}" and "&7» &fOutput: &e&n$220":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 14 with red glazed terracotta named "&cSnowGolem &fGen" with lore "&7» &fUpgrade: &e&n${@redtocb}" and "&7» &fOutput: &e&n$225":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 15 with copper block named "&6&lStrider Gen" with lore "&7» &fUpgrade: &e&n${@cbtoec}" and "&7» &fOutput: &e&n$230":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 16 with exposed copper named "&6&lFox Gen" with lore "&7» &fUpgrade: &e&n${@ectowc}" and "&7» &fOutput: &e&n$235":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 17 with weathered copper named "&6&lWolf Gen" with lore "&7» &fUpgrade: &e&n${@wctooc}" and "&7» &fOutput: &e&n$240":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 21 with oxidized copper named "&6&lCreeper Gen" with lore "&7» &fUpgrade: &e&n${@octocc}" and "&7» &fOutput: &e&n$245":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 22 with cut copper named "&6&lDrowned Gen" with lore "&7» &fUpgrade: &e&n${@cctoecc}" and "&7» &fOutput: &e&n$250":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 23 with exposed cut copper named "&6&lIllusioner Gen" with lore "&7» &fUpgrade: &e&nMAX!" and "&7» &fOutput: &e&n$275":
+				close player's inventory 
+				make player execute command "/cg"
+			make gui slot 35 with barrier named "Close Menu":
+				close player's inventory
+				send "Closed gen list."
+		open last gui for player
+		
+command /closedgui:
+	permission: gui.closed
+	permission message: You dont have permision to show the closed gen list message.
+	aliases: /cg
+	trigger:
+		send "no sneaky sneaky stealers!"

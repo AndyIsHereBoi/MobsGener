@@ -1,0 +1,7 @@
+command /pay:
+	trigger:
+		send "&cPaying is currently disabled."
+		
+command /essentials:pay:
+	trigger:
+		send "&cPaying is currently disabled."

@@ -1,0 +1,373 @@
+# Teams Skript by BuggyAl
+# Made for MobsGener
+
+# Variables:
+# {team::%player's uuid%} (id of player's team)
+# {teams::ID::*} (members, trusted, leader) 
+
+# Custom Mechanics:
+# Team Gen Cap = largest cap out of all players
+# Total gens = amount of gens from ALL players
+# Gens placed are owned by the entire team
+# Shared /storage (anyone can claim the money)
+# Team Chat
+# Team Bonuses? (multiplier or somthin)
+# Same plot
+
+on join:
+	loop {teams::*}:
+		if {teams::%loop-index%::invites::*} contains player's uuid:
+			set {_leader} to {teams::%loop-index%::leader} parsed as player
+			send formatted "&aYou have been invited to join the team of &b%{_leader}%&a!  <run command:/team join %loop-index%>&a&l[ACCEPT]<reset>  <run command:/team denyinvite %loop-index%>&c&l[DENY]<reset>" to player
+
+
+command /team [<text>] [<text>]:
+	aliases: /t
+	executable by: players
+	description: The main command for teams.
+	trigger:
+
+		if arg-1 is not set:
+			send "" to player
+			send " &e---- &6Teams &e----" to player
+			send "&6/team &7- &fSends this message" to player
+			send "&6/team create &7- &fCreates a team" to player
+			send "&6/team info &7- &fShows information about your team" to player
+			send "&6/team leave &7- &fLeave your current team" to player
+			send "&6/team invite &7- &fInvite a player to your team" to player
+			send "&6/team trust &7- &fTrusts player" to player
+			send "&6/team untrust &7- &fUntrust a player" to player
+			send "&6/team kick &7- &fKicks a player from your team" to player
+			send "&6/team transfer &7- &fTransfers ownership of your team" to player
+			send "&6/team disband &7- &fDeletes your team" to player
+
+		else if arg-1 is "info":
+			if hasTeam(player):
+				set {_team} to getTeam(player)
+				set {_leader} to {teams::%{_team}%::leader} parsed as player
+				set {_members::*} to parseUUIDList({teams::%{_team}%::members::*})
+				set {_trusted::*} to parseUUIDList({teams::%{_team}%::trusted::*})
+				send "&e--- &6&lYour Team &e---" to player
+				send "&6Team Leader &7- &e%{_leader}%", "&6Trusted Members &7- &e%{_trusted::*}%", and "&6Members &7- &e%{_members::*}%" to player
+				send "&e&e------------------" to player
+			else:
+				send "&cYou are not on a team! &7(Join or create one using &o/team <join/create>&7)" to player
+
+		else if arg-1 is "create":
+			createTeam(player)
+
+		else if arg-1 is "join": # requires someone to add you
+			if arg-2 is set:
+				joinTeam(player, arg-2)
+			else:
+				send "&cYou must specify a team to join!" to player
+
+		else if arg-1 is "leave":
+			leaveTeam(player)
+				
+		else if arg-1 is "denyinvite":
+			if arg-2 is set:
+				denyInvite(player, arg-2)
+			else:
+				send "&cYou must specify a team to deny an invite from!" to player
+
+		else if arg-1 is "invite": # allows someone to join
+			if arg-2 is set:
+				invitePlayer(player, arg-2 parsed as player)
+			else:
+				send "&cYou must specify a player to invite!" to player
+
+		else if arg-1 is "kick":
+			if arg-2 is set:
+				kickTeamMember(player, arg-2 parsed as player)
+			else:
+				send "&cYou must specify a player to kick!" to player
+
+		else if arg-1 is "trust":
+			if arg-2 is set:
+				trustMember(player, arg-2 parsed as player)
+			else:
+				send "&cYou must specify a player to trust!" to player
+
+		else if arg-1 is "untrust":	
+			if arg-2 is set:
+				untrustMember(player, arg-2 parsed as player)
+			else:
+				send "&cYou must specify a player to untrust!" to player
+
+		else if arg-1 is "transfer":
+			if arg-2 is set:
+				transferTeam(player, arg-2 parsed as player)
+			else:
+				send "&cYou must specify a player to transfer your team to!" to player
+
+		else if arg-1 is "disband":
+			disbandTeam(player)
+
+		else if arg-1 is "id":
+			send formatted "<suggest command:%{team::%player's uuid%}%>&aYour team ID is: &e%{team::%player's uuid%}% &7&o(Click to copy!)" to player
+
+		else:
+			execute player command "/team"
+	
+
+function parseUUIDList(members: objects) :: objects:
+	loop {_members::*}:
+		add (loop-value parsed as player) to {_usernames::*}
+	if size of {_usernames::*} is 0:
+		add "None!" to {_usernames::*}
+	return {_usernames::*}
+
+
+function hasTeam(p: player) :: boolean:
+	set {_uuid} to uuid of {_p}
+	if {team::%{_uuid}%} is set:
+		return true
+	else:
+		return false
+
+function getTeam(p: player) :: string:
+	set {_uuid} to uuid of {_p}
+	return {team::%{_uuid}%}
+
+function createTeam(p: player):
+	if hasTeam({_p}) is false:
+		set {_uuid} to uuid of {_p}
+		set {_id} to generateTeamID()
+		set {teams::%{_id}%::leader} to {_uuid}
+		set {team::%{_uuid}%} to {_id}
+		add {_uuid} to {teams::%{_id}%::members::*}
+		send "&aTeam created!" to {_p}
+	else:
+		send "&cYou are already on a team!" to {_p}
+
+
+function joinTeam(p: player, id: text):
+	set {_uuid} to uuid of {_p}
+	if {teams::%{_id}%::leader} is not set:
+		send "&cInvalid team ID!" to {_p}
+		stop
+	if {teams::%{_id}%::invites::*} does not contain {_uuid}:
+		send "&cYou have not been invited to this team!" to {_p}
+		stop
+	if {teams::%{id}%::members::*} contains {_uuid}: 
+		send "&cYou are already on this team!" to {_p}
+		stop
+	if {teams::%{_id}%::trusted::*} contains {_uuid}:
+		send "&cYou are already on this team!" to {_p}
+		stop
+	if {teams::%{id}%::leader} is {_uuid}:
+		send "&cYou are already on this team!" to {_p}
+		stop
+	set {team::%{_uuid}%} to {_id}
+	loop {teams::%{_id}%::members::*}:
+		send "&b%{_p}% &ajoined your team!" to loop-value parsed as player
+	add {_uuid} to {teams::%{_id}%::members::*}
+	remove {_uuid} from {teams::%{_id}%::invites::*}
+	send "&aYou joined the team!" to {_p}
+
+
+function leaveTeam(p: player):
+	set {_uuid} to uuid of {_p}
+	if hasTeam({_p}):
+		set {_id} to getTeam({_p})
+		if {teams::%{_id}%::leader} is {_uuid}:
+			if size of {teams::%{_id}%::members::*} is less than 2:
+				disbandTeam({_p})
+				stop
+			else:
+				send "&cYou must transfer ownership before leaving!" to {_p}
+				stop
+		set {_id} to {team::%{_uuid}%}
+		remove {_uuid} from {teams::%{_id}%::members::*}
+		loop {teams::%{_id}%::members::*}:
+			send "&b%{_p}% &aleft your team!" to loop-value parsed as player
+		remove {_uuid} from {teams::%{_id}%::trusted::*}
+		clear {team::%{_uuid}%}
+		send "&aYou left the team!" to {_p}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function denyInvite(p: player, id: text):
+	broadcast "%{_p}% denied %{_id}%"
+	set {_uuid} to uuid of {_p}
+	if {teams::%{_id}%::leader} is not set:
+		send "&cInvalid team ID!" to {_p}
+		broadcast "Leader: %{teams::%{_id}%::leader}% | Team ID: %{_id}%"
+		stop
+	if {teams::%{_id}%::invites::*} does not contain {_uuid}:
+		send "&cYou have not been invited to this team!" to {_p}
+		stop
+	remove {_uuid} from {teams::%{_id}%::invites::*}
+	send "&aYou denied the invite!" to {_p}
+
+
+function invitePlayer(p: player, invited: player):
+	set {_uuid} to uuid of {_p}
+	set {_invUuid} to uuid of {_invited}
+	set {_team} to getTeam({_p})
+	if hasTeam({_p}):
+
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			if {teams::%{_team}%::trusted::*} does not contain {_uuid}:
+				send "&cYou cannot invite players to your team!" to {_p}
+				stop
+			
+		if {teams::%{_team}%::members::*} contains {_invUuid}:
+			send "&cThat player is already on your team!" to {_p}
+			stop
+		
+		if {teams::%{_team}%::invites::*} contains {_invUuid}:
+			send "&cThat player has already been invited to your team!" to {_p}
+			stop
+
+		add {_invUuid} to {teams::%{_team}%::invites::*}
+
+		set {_leader} to {teams::%{_team}%::leader} parsed as player
+		send "&aYou invited &b%{_invited}% &ato join your team!" to {_p}
+		send formatted "&aYou have been invited to join the team of &b%{_leader}%&a! <run command:/team join %{_team}%>&a&l[ACCEPT]<reset> <run command:/team denyinvite %{_team}%>&c&l[DENY]<reset>" to {_invited}
+		
+		wait 1 minute
+		
+		if {teams::%{_team}%::members::*} does not contain {_invUuid}:
+			remove {_invUuid} from {teams::%{_team}%::invites::*}
+			send "&cYour invite to join the team of &4%{_leader}% &chas expired!" to {_invited}
+			send "&cYour invite to %{_invUuid} parsed as player% &chas expired!" to {_p}
+
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function kickTeamMember(p: player, member: player):
+	if hasTeam({_p}):
+		set {_uuid} to uuid of {_p}
+		set {_memUuid} to uuid of {_member}
+		set {_team} to getTeam({_p})
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			if {teams::%{_team}%::trusted::*} does not contain {_uuid}:
+				send "&cYou cannot kick players from your team!" to {_p}
+				stop
+		if {teams::%{_team}%::members::*} does not contain {_memUuid}:
+			send "&cThat player is not on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::leader} is {_memUuid}:
+			send "&cYou cannot kick this player!" to {_p}
+			stop
+		clear {team::%{_memUuid}%}
+		remove {_memUuid} from {teams::%{_team}%::members::*}
+		loop {teams::%{_team}%::members::*}:
+			send "&b%{_member}% &awas kicked from your team!" to loop-value parsed as player
+		send "&aYou were kicked from your team!" to {_memUuid} parsed as player
+		send "&aYou kicked &b%{_member}%&a from the team!" to {_p}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function trustMember(p: player, member: player):
+	if hasTeam({_p}):
+		set {_uuid} to uuid of {_p}
+		set {_memUuid} to uuid of {_member}
+		set {_team} to getTeam({_p})
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			send "&cYou cannot trust players on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::members::*} does not contain {_memUuid}:
+			send "&cThat player is not on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::trusted::*} contains {_memUuid}:
+			send "&cThis player is already trusted!" to {_p}
+			stop
+		if {teams::%{_team}%::leader} is {_memUuid}:
+			send "&cThis player is automatically trusted!" to {_p}
+			stop
+		add {_memUuid} to {teams::%{_team}%::trusted::*}
+		send "&aYou trusted &b%{_member}%&a on the team!" to {_p}
+		send "&b%{_p}% &atrusted you on the team!" to {_member}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function untrustMember(p: player, member: player):
+	if hasTeam({_p}):
+		set {_uuid} to uuid of {_p}
+		set {_memUuid} to uuid of {_member}
+		set {_team} to getTeam({_p})
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			send "&cYou cannot untrust players on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::members::*} does not contain {_memUuid}:
+			send "&cThat player is not on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::trusted::*} does not contain {_memUuid}:
+			send "&cThis player is already not trusted!" to {_p}
+			stop 
+		if {teams::%{_team}%::leader} is {_memUuid}:
+			send "&cThis player is automatically trusted!" to {_p}
+			stop
+		remove {_memUuid} from {teams::%{_team}%::trusted::*}
+		send "&aYou untrusted &b%{_member}%&a on the team!" to {_p}
+		send "&b%{_p}% &auntrusted you on the team!" to {_member}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function transferTeam(p: player, member: player):
+	if hasTeam({_p}):
+		set {_uuid} to uuid of {_p}
+		set {_memUuid} to uuid of {_member}
+		set {_team} to getTeam({_p})
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			send "&cYou cannot transfer ownership of your team!" to {_p}
+			stop
+		if {teams::%{_team}%::members::*} does not contain {_memUuid}:
+			send "&cThat player is not on your team!" to {_p}
+			stop
+		if {teams::%{_team}%::leader} is {_memUuid}:
+			send "&cYou cannot transfer your team to yourself!" to {_p}
+			stop
+		set {teams::%{_team}%::leader} to {_memUuid}
+		loop {teams::%{_team}%::members::*}:
+			send "&aThe group has been transferred to &b%{_memUuid} parsed as player%&a!" to loop-value parsed as player
+		send "&aYou transferred the team to &b%{_member}%&a!" to {_p}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function disbandTeam(p: player):
+	if hasTeam({_p}):
+		set {_uuid} to uuid of {_p}
+		set {_team} to getTeam({_p})
+		if {teams::%{_team}%::leader} is not {_uuid}:
+			send "&cYou cannot disband your team!" to {_p}
+			stop
+		loop {teams::%{_team}%::members::*}:
+			send "&aThe group has been disbanded!" to loop-value parsed as player
+			clear {team::%{_uuid}%}
+		delete {teams::%{_team}%::*}
+		send "&aYou disbanded your team!" to {_p}
+	else:
+		send "&cYou are not on a team!" to {_p}
+
+
+function generateTeamID() :: string: 
+	set {_id} to random 8 char string from charset `a-zA-Z0-9`
+	while {teams::%{_id}%} is set:
+		set {_id} to random 8 char string from charset `a-zA-Z0-9`
+	return {_id}
+
+
+on tab complete of "/team":
+	set tab completions for position 1 to "create", "info", "leave", "invite", "trust", "untrust", "kick", "transfer", and "disband"
+	if tab arg-1 = "invite":
+		set tab completions for position 2 to all offline players
+	else if tab arg-1 = "trust":
+		set tab completions for position 2 to {teams::%{_team}%::members::*}
+	else if tab arg-1 = "untrust":
+		set tab completions for position 2 to {teams::%{_team}%::trusted::*}
+	else if tab arg-1 = "transfer":
+		set tab completions for position 2 to {teams::%{_team}%::members::*}
+	else if tab arg-1 = "leave":
+		set tab completions for position 2 to none
+	else if tab arg-1 = "kick":
+		set tab completions for position 2 to {teams::%{_team}%::members::*}

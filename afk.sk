@@ -1,0 +1,29 @@
+on skript load:
+    delete {afka::*}
+
+on any move:
+    if {afka::%uuid of player%} is true:
+        send "&8[&2&lMobsGener&8] &bWelcome back! ." to player
+        delete {afka::%uuid of player%}
+
+on chat:
+    if {afka::%uuid of player%} is true:
+        send "&8[&2&lMobsGener&8] &bWelcome back! ." to player
+        delete {afka::%uuid of player%}
+
+command /setafk:
+    permission: op  
+    trigger:   
+        set {afk_location} to player's location
+        
+command /afk:
+    trigger:
+        teleport player to {afk_location}
+
+on afk toggle:
+    if player is not afk:
+        set {afka::%uuid of player%} to true
+        teleport player to {afk_location}
+        send "&8[&2&lMobsGener&8] &bYou are now afk. You have been teleported to limbo. This is to reduce overall server lag!" to player
+    else:
+        stop
